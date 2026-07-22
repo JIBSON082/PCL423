@@ -183,6 +183,34 @@
   .sa-check{background:var(--navy); color:var(--paper); padding:0 22px; border-radius:10px; font-weight:600; font-size:0.9rem;}
   .sa-check:disabled{opacity:0.3;}
 
+  /* flashcard flip */
+  .flip-scene{perspective:1600px; margin-top:22px; flex:1; display:flex; cursor:pointer;}
+  .flip-card{
+    width:100%; position:relative; transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1); min-height:150px;
+  }
+  .flip-card.flipped{transform:rotateY(180deg); cursor:default;}
+  .flip-scene.flipped-scene{cursor:default;}
+  .flip-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .flip-face.back{transform:rotateY(180deg);}
+  .flip-answer-label{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--teal-dim); font-weight:600; margin-bottom:10px;}
+  .flip-answer-text{font-size:1.05rem; line-height:1.6; color:#33404a;}
+  .reveal-btn{
+    margin-top:24px; align-self:flex-start; background:var(--navy); color:var(--paper);
+    padding:12px 22px; border-radius:10px; font-weight:600; font-size:0.88rem;
+  }
+  .self-assess{display:flex; gap:10px; margin-top:24px;}
+  .self-btn{
+    flex:1; padding:13px 16px; border-radius:10px; font-weight:600; font-size:0.86rem;
+    border:1.5px solid transparent; transition:transform .12s ease;
+  }
+  .self-btn:hover{transform:translateY(-1px);}
+  .self-knew{background:rgba(76,154,106,0.12); border-color:rgba(76,154,106,0.4); color:#2f6b47;}
+  .self-learning{background:rgba(228,87,46,0.1); border-color:rgba(228,87,46,0.35); color:#a83e20;}
+
   .feedback{
     margin-top:20px; padding:16px 18px; border-radius:10px; font-size:0.9rem; line-height:1.55;
     display:flex; gap:10px; align-items:flex-start;
@@ -595,14 +623,14 @@ function startOrResume(sectionId, mode){
 }
 
 /* ---------- QUIZ ---------- */
-let quizLocal = { revealed:false, chosen:null, inputVal:'' };
+let quizLocal = { revealed:false, flipped:false, chosen:null };
 
 function renderQuiz(){
   const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
   const items = section[activeQuiz.mode];
   const idx = activeQuiz.idx;
   const item = items[idx];
-  quizLocal = { revealed:false, chosen:null, inputVal:'' };
+  quizLocal = { revealed:false, flipped:false, chosen:null };
 
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
@@ -627,19 +655,23 @@ function renderQuestionCard(section, item){
   const qcard = document.getElementById('qcard');
   if(activeQuiz.mode === 'short'){
     qcard.innerHTML = `
-      <div class="qkicker">Short Answer</div>
-      <div class="qtext">${escapeHtml(item.q)}</div>
-      <div class="sa-input-row">
-        <input type="text" id="saInput" placeholder="Type your answer…" autocomplete="off"/>
-        <button class="btn sa-check" id="saCheck">Check</button>
+      <div class="qkicker">Flashcard</div>
+      <div class="flip-scene">
+        <div class="flip-card" id="flipCard">
+          <div class="flip-face front">
+            <div class="qtext">${escapeHtml(item.q)}</div>
+            <button class="reveal-btn" id="revealBtn">Flip to reveal answer</button>
+          </div>
+          <div class="flip-face back">
+            <div class="flip-answer-label">Answer</div>
+            <div class="flip-answer-text">${escapeHtml(item.a)}</div>
+          </div>
+        </div>
       </div>
       <div id="saFeedback"></div>
     `;
-    const input = document.getElementById('saInput');
-    const checkBtn = document.getElementById('saCheck');
-    input.focus();
-    input.addEventListener('keydown', e=>{ if(e.key==='Enter') doSaCheck(item); });
-    checkBtn.addEventListener('click', ()=> doSaCheck(item));
+    document.getElementById('revealBtn').addEventListener('click', (e)=>{ e.stopPropagation(); doSaReveal(); });
+    document.querySelector('.flip-scene').addEventListener('click', ()=> doSaReveal());
     renderQuizNav(section, false);
   } else {
     const letters = ['A','B','C','D','E'];
@@ -661,21 +693,28 @@ function renderQuestionCard(section, item){
   }
 }
 
-function doSaCheck(item){
-  if(quizLocal.revealed) return;
-  const val = document.getElementById('saInput').value.trim();
-  const norm = val.toLowerCase();
-  const correct = item.accept.some(k => norm.includes(k.toLowerCase())) && val.length>0;
-  quizLocal.revealed = true;
-  recordAnswer(correct);
+function doSaReveal(){
+  if(quizLocal.flipped) return;
+  quizLocal.flipped = true;
+  document.getElementById('flipCard').classList.add('flipped');
   const fb = document.getElementById('saFeedback');
   fb.innerHTML = `
-    <div class="feedback ${correct?'correct':'wrong'}">
-      <span>${correct ? '✓' : '✕'}</span>
-      <div><b>${correct ? 'Good — that is right.' : 'Not quite.'}</b>${escapeHtml(item.a)}</div>
+    <div class="self-assess">
+      <button class="self-btn self-knew" id="knewBtn">✓ I knew it</button>
+      <button class="self-btn self-learning" id="learningBtn">↻ Still learning</button>
     </div>`;
-  document.getElementById('saInput').disabled = true;
-  document.getElementById('saCheck').disabled = true;
+  document.getElementById('knewBtn').addEventListener('click', ()=> doSaAssess(true));
+  document.getElementById('learningBtn').addEventListener('click', ()=> doSaAssess(false));
+}
+
+function doSaAssess(correct){
+  if(quizLocal.revealed) return;
+  quizLocal.revealed = true;
+  recordAnswer(correct);
+  document.getElementById('knewBtn').disabled = true;
+  document.getElementById('learningBtn').disabled = true;
+  document.getElementById('knewBtn').style.opacity = correct ? '1' : '0.4';
+  document.getElementById('learningBtn').style.opacity = correct ? '0.4' : '1';
   renderQuizNav(SECTIONS.find(s=>s.id===activeQuiz.sectionId), true);
 }
 

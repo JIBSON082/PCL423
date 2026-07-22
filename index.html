@@ -1,669 +1,775 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PharmaKinetics Mastery | Flashcards & Quizzes</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCL 423 — Kinetics &amp; Clinical Pharmacokinetics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F2A;
+    --navy-2:#102838;
+    --paper:#F5F2EA;
+    --paper-dim:#E8E3D6;
+    --teal:#2FA5A9;
+    --teal-dim:#1F7478;
+    --coral:#E4572E;
+    --green:#4C9A6A;
+    --slate:#7C8B94;
+    --ink:#0B1F2A;
+    --gold:#D9A441;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--teal); color:var(--navy);}
+  h1,h2,h3,.serif{font-family:'Spectral',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  button{font-family:'Inter',sans-serif; cursor:pointer; border:none;}
+  button:focus-visible, input:focus-visible, a:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+  a{color:inherit;}
 
-        :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary: #ec4899;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --success: #10b981;
-            --danger: #ef4444;
-        }
+  /* ---------- background curve ---------- */
+  .bg-curve{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.35;
+  }
+  .bg-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(245,242,234,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,242,234,0.025) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+  .app{position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:32px 20px 64px;}
+  .wrap{width:100%; max-width:760px;}
 
-        body {
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    width:100%; max-width:760px; margin-bottom:28px;
+  }
+  .brand{display:flex; align-items:baseline; gap:10px;}
+  .brand-mark{
+    font-family:'Spectral',serif; font-weight:600; font-size:1.35rem; letter-spacing:-0.01em;
+  }
+  .brand-mark span{color:var(--gold);}
+  .brand-sub{font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--slate);}
+  .user-chip{
+    display:flex; align-items:center; gap:8px;
+    font-size:0.8rem; color:var(--slate);
+    background:rgba(245,242,234,0.05); border:1px solid rgba(245,242,234,0.1);
+    padding:6px 12px; border-radius:100px;
+  }
+  .user-chip strong{color:var(--paper); font-weight:600;}
 
-        /* Glassmorphism Containers */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 800px;
-            margin: 40px auto;
-            text-align: center;
-            animation: fadeIn 0.6s ease-out;
-        }
+  /* ---------- name gate ---------- */
+  .gate{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    min-height:82vh; justify-content:center; width:100%; max-width:560px; margin:0 auto;
+  }
+  .gate-eyebrow{
+    font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--teal);
+    margin-bottom:18px;
+  }
+  .gate h1{
+    font-size:2.6rem; font-weight:600; line-height:1.08; letter-spacing:-0.015em;
+    margin-bottom:14px;
+  }
+  .gate h1 em{font-style:italic; color:var(--gold);}
+  .gate p.lead{
+    color:var(--slate); font-size:1rem; line-height:1.6; max-width:440px; margin-bottom:36px;
+  }
+  .name-form{width:100%; max-width:380px; display:flex; flex-direction:column; gap:14px;}
+  .name-form input{
+    width:100%; padding:16px 18px; border-radius:10px;
+    background:rgba(245,242,234,0.06); border:1px solid rgba(245,242,234,0.18);
+    color:var(--paper); font-size:1.05rem; font-family:'Spectral',serif;
+    transition:border-color .2s, background .2s;
+  }
+  .name-form input::placeholder{color:rgba(245,242,234,0.35); font-family:'Inter',sans-serif;}
+  .name-form input:focus{border-color:var(--teal); background:rgba(245,242,234,0.09);}
+  .btn{
+    padding:15px 24px; border-radius:10px; font-weight:600; font-size:0.95rem;
+    transition:transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn:active{transform:translateY(0);}
+  .btn-primary{background:var(--teal); color:var(--navy);}
+  .btn-primary:hover{box-shadow:0 8px 24px -8px rgba(47,165,169,0.6);}
+  .btn-primary:disabled{opacity:0.35; transform:none; box-shadow:none; cursor:not-allowed;}
+  .btn-gold{background:var(--gold); color:var(--navy);}
+  .btn-gold:hover{box-shadow:0 8px 24px -8px rgba(217,164,65,0.6);}
+  .btn-ghost{background:transparent; color:var(--paper); border:1px solid rgba(245,242,234,0.25);}
+  .btn-ghost:hover{background:rgba(245,242,234,0.06);}
+  .btn-danger-ghost{background:transparent; color:var(--coral); border:1px solid rgba(228,87,46,0.35);}
+  .btn-sm{padding:9px 16px; font-size:0.82rem; border-radius:8px;}
 
-        h1, h2, h3 {
-            margin-bottom: 20px;
-            font-weight: 800;
-            background: linear-gradient(to right, #818cf8, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+  .gate-hint{font-size:0.75rem; color:var(--slate); margin-top:14px;}
 
-        p {
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
+  /* ---------- home / topic grid ---------- */
+  .home-head{margin-bottom:30px;}
+  .home-head .eyebrow{font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); margin-bottom:10px;}
+  .home-head h1{font-size:1.9rem; font-weight:600; letter-spacing:-0.01em; margin-bottom:8px;}
+  .home-head p{color:var(--slate); font-size:0.95rem; line-height:1.55; max-width:560px;}
 
-        /* Form Elements */
-        input[type="text"] {
-            width: 100%;
-            max-width: 400px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+  .overall-bar{
+    width:100%; height:6px; border-radius:100px; background:rgba(245,242,234,0.08);
+    margin:22px 0 4px; overflow:hidden;
+  }
+  .overall-bar-fill{height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); border-radius:100px; transition:width .5s ease;}
+  .overall-label{font-size:0.72rem; color:var(--slate); margin-bottom:26px; letter-spacing:0.02em;}
 
-        input[type="text"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-        }
+  .topic-list{display:flex; flex-direction:column; gap:14px;}
+  .topic-card{
+    background:var(--paper); color:var(--ink); border-radius:14px; padding:22px 24px;
+    position:relative; overflow:hidden;
+  }
+  .topic-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--tcolor, var(--teal));
+  }
+  .topic-top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px;}
+  .topic-num{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--slate); letter-spacing:0.05em;
+  }
+  .topic-title{font-family:'Spectral',serif; font-weight:600; font-size:1.22rem; letter-spacing:-0.01em; margin-top:2px;}
+  .topic-desc{font-size:0.83rem; color:#5b6670; line-height:1.5; margin-top:6px; max-width:480px;}
 
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
-        }
+  .mode-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+  .mode-btn{
+    flex:1; min-width:150px; text-align:left; padding:12px 14px; border-radius:10px;
+    background:rgba(11,31,42,0.04); border:1px solid rgba(11,31,42,0.1);
+    display:flex; flex-direction:column; gap:4px; transition:background .15s, border-color .15s;
+  }
+  .mode-btn:hover{background:rgba(11,31,42,0.08); border-color:rgba(11,31,42,0.2);}
+  .mode-btn .mlabel{font-size:0.78rem; font-weight:600; display:flex; justify-content:space-between; align-items:center;}
+  .mode-btn .mprog{font-size:0.68rem; color:#5b6670; font-family:'JetBrains Mono',monospace;}
+  .mode-badge{
+    font-size:0.62rem; padding:2px 7px; border-radius:100px; font-weight:700; letter-spacing:0.03em;
+  }
+  .badge-done{background:var(--green); color:#fff;}
+  .badge-progress{background:var(--gold); color:var(--navy);}
+  .badge-new{background:rgba(11,31,42,0.08); color:#5b6670;}
 
-        button:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-        }
+  /* ---------- quiz shell ---------- */
+  .quiz-topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; width:100%;}
+  .quiz-meta{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal);}
+  .quiz-progress-track{
+    width:100%; height:5px; background:rgba(245,242,234,0.08); border-radius:100px; margin-bottom:30px; overflow:hidden;
+  }
+  .quiz-progress-fill{height:100%; background:var(--teal); border-radius:100px; transition:width .4s ease;}
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            box-shadow: none;
-        }
+  .qcard{
+    background:var(--paper); color:var(--ink); border-radius:18px; padding:36px 32px;
+    min-height:280px; display:flex; flex-direction:column;
+  }
+  .qkicker{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--teal-dim); font-weight:600; margin-bottom:14px;}
+  .qtext{font-family:'Spectral',serif; font-size:1.35rem; line-height:1.45; font-weight:500; flex:1;}
 
-        .btn-secondary:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
+  .sa-input-row{display:flex; gap:10px; margin-top:26px;}
+  .sa-input-row input{
+    flex:1; padding:14px 16px; border-radius:10px; border:1.5px solid #cfc8b5;
+    font-family:'Inter',sans-serif; font-size:0.98rem; background:#fff;
+  }
+  .sa-input-row input:focus{border-color:var(--teal);}
+  .sa-check{background:var(--navy); color:var(--paper); padding:0 22px; border-radius:10px; font-weight:600; font-size:0.9rem;}
+  .sa-check:disabled{opacity:0.3;}
 
-        /* Grid Layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
+  .feedback{
+    margin-top:20px; padding:16px 18px; border-radius:10px; font-size:0.9rem; line-height:1.55;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .feedback.correct{background:rgba(76,154,106,0.12); border:1px solid rgba(76,154,106,0.35);}
+  .feedback.wrong{background:rgba(228,87,46,0.1); border:1px solid rgba(228,87,46,0.3);}
+  .feedback b{display:block; margin-bottom:2px;}
 
-        .topic-card, .mode-card {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+  .mcq-opts{display:flex; flex-direction:column; gap:10px; margin-top:26px;}
+  .opt{
+    text-align:left; padding:13px 16px; border-radius:10px; border:1.5px solid #d8d2c1;
+    background:#fff; font-size:0.94rem; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    transition:border-color .15s, background .15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--teal);}
+  .opt:disabled{cursor:default;}
+  .opt.chosen{border-color:var(--navy);}
+  .opt.opt-correct{border-color:var(--green); background:rgba(76,154,106,0.1);}
+  .opt.opt-wrong{border-color:var(--coral); background:rgba(228,87,46,0.08);}
+  .opt-letter{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--slate);
+    width:20px; height:20px; border-radius:50%; border:1px solid #c9c2ae;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
 
-        .topic-card:hover, .mode-card:hover {
-            border-color: var(--secondary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.2);
-        }
+  .quiz-nav{display:flex; justify-content:space-between; align-items:center; margin-top:22px;}
 
-        /* Flashcard 3D Flip */
-        .flashcard-container {
-            perspective: 1000px;
-            width: 100%;
-            height: 350px;
-            margin-bottom: 30px;
-        }
+  /* ---------- results ---------- */
+  .results-card{background:var(--paper); color:var(--ink); border-radius:18px; padding:44px 32px; text-align:center;}
+  .score-ring{font-family:'Spectral',serif; font-size:4rem; font-weight:600; letter-spacing:-0.02em;}
+  .results-sub{color:#5b6670; font-size:0.92rem; margin:6px 0 28px;}
+  .results-actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
 
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
+  /* ---------- footer nav ---------- */
+  .back-row{margin-bottom:18px;}
 
-        .flashcard.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            border-radius: 24px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-            border-color: var(--primary);
-        }
-
-        .card-text {
-            font-size: 1.4rem;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .card-back .card-text {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #e2e8f0;
-        }
-
-        .hint {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* MCQ Styles */
-        .mcq-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .mcq-btn {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            text-align: left;
-            padding: 16px 24px;
-            font-weight: 400;
-            box-shadow: none;
-        }
-
-        .mcq-btn:hover:not(:disabled) {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: var(--primary);
-        }
-
-        .mcq-btn.correct {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--success);
-            color: var(--success);
-        }
-
-        .mcq-btn.wrong {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: var(--danger);
-            color: var(--danger);
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        .header-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .score-badge {
-            background: rgba(236, 72, 153, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            color: #fbcfe8;
-        }
-
-        .navigation-btns {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-
-        /* Screens */
-        .screen {
-            display: none;
-            width: 100%;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        cite {
-            display: block;
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: #64748b;
-            font-style: italic;
-        }
-
-        @media (max-width: 600px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .flashcard-container { height: 450px; }
-        }
-    </style>
+  @media (max-width:600px){
+    .gate h1{font-size:2.05rem;}
+    .qcard{padding:26px 20px;}
+    .topic-card{padding:18px;}
+    .mode-row{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- Screen 1: Welcome / Name Input -->
-    <div id="screen-welcome" class="glass-panel screen active">
-        <h1>Welcome to PharmaKinetics</h1>
-        <p>Master Rates, Orders of Reaction, and Clinical Pharmacokinetics with this beautifully crafted learning experience.</p>
-        <input type="text" id="username-input" placeholder="Enter your name to begin..." autocomplete="off">
-        <br>
-        <button onclick="startApp()">Start Learning</button>
+<svg class="bg-curve" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path id="decayPath" d="M -50 120 C 250 140, 380 500, 750 620 S 1250 780, 1550 800" stroke="#2FA5A9" stroke-width="1.5" fill="none" stroke-dasharray="6 8"/>
+  <path d="M -50 60 C 300 90, 500 300, 760 420 S 1200 560, 1550 610" stroke="#D9A441" stroke-width="1" fill="none" opacity="0.5" stroke-dasharray="2 6"/>
+</svg>
+<div class="bg-grid"></div>
+
+<div class="app" id="app"></div>
+
+<script>
+/* ============================================================
+   DATA — PCL 423: Rates & Orders of Reaction / Clinical PK
+   ============================================================ */
+const SECTIONS = [
+  {
+    id:'kinetics',
+    color:'#2FA5A9',
+    num:'01',
+    title:'Rates & Orders of Reaction',
+    desc:'Zero, first & second order kinetics, rate constants, half-life, and complex reaction schemes.',
+    short:[
+      {q:"What is pharmacokinetics, in one sentence?", accept:["rate","absorption","distribution","metabolism","excretion"], a:"The mathematical study of the rate at which drug reactions (ADME) occur in the body."},
+      {q:"Define 'order of reaction'.", accept:["number of concentration","concentration terms","determine the rate","influences the rate"], a:"The number of concentration terms that determine the rate of a reaction (or how concentration influences the rate)."},
+      {q:"What does the rate constant K depend on, and what is it independent of?", accept:["temperature","independent of concentration"], a:"K is independent of concentration, but depends on factors like temperature."},
+      {q:"Write the integrated equation for a zero order reaction.", accept:["kt","c0","ct = c0"], a:"Ct = C0 − Kt (a plot of concentration vs time is a straight line, slope = −K)."},
+      {q:"What is the unit of K for a zero order reaction?", accept:["conc", "mol l-1 s-1","concentration time"], a:"Concentration·time⁻¹, e.g. mol L⁻¹ s⁻¹."},
+      {q:"Give the half-life equation for a zero order reaction.", accept:["c0/2k","co/2k"], a:"t1/2 = C0 / 2K."},
+      {q:"Name one pharmaceutical example of a zero order process.", accept:["infusion","transdermal","tdds","suspension","vitamin a","cefotaxime"], a:"Drug release from IV infusion or a transdermal delivery system (TDDS); also solubility-limited degradation in suspensions."},
+      {q:"Give the half-life equation for a first order reaction.", accept:["0.693"], a:"t1/2 = 0.693 / K."},
+      {q:"Name one pharmacokinetic process that follows first order kinetics.", accept:["absorption","distribution","elimination","microbial"], a:"Drug absorption, distribution, and elimination generally follow first order kinetics."},
+      {q:"What is the unit of K for a second order reaction?", accept:["mol-1","conc-1 time-1","concentration"], a:"Concentration⁻¹·time⁻¹, e.g. mol⁻¹ s⁻¹."},
+      {q:"What is a pseudo-first order reaction? Give an example.", accept:["excess","constant concentration","aspirin","ascorbic"], a:"A second order reaction that behaves like first order because one reactant is present in great excess (e.g. aspirin hydrolysis, ascorbic acid tablet decomposition)."},
+      {q:"On the data-plotting method, which plot is linear for a first order reaction?", accept:["log", "ln c"], a:"A plot of log (a−x), or ln C, against time is linear for a first order reaction."},
+      {q:"List the methods used to determine the order of a reaction.", accept:["substitution","plotting","initial rate","half-life"], a:"Substitution method, data plotting method, initial rate method, and half-life determination method."},
+      {q:"According to the half-life determination method, how does t1/2 relate to initial concentration 'a' and reaction order n?", accept:["1/a","n-1"], a:"t1/2 is proportional to 1/a^(n−1)."},
+      {q:"What is t10%, and how does it relate to t1/2 for a first order reaction?", accept:["0.104","0.152"], a:"t10% = 0.104/K, which equals approximately 0.152 × t1/2."},
+    ],
+    mcq:[
+      {q:"A reaction whose rate is independent of the concentration of reactant is:", opts:["Zero order","First order","Second order","Pseudo-first order"], correct:0},
+      {q:"The half-life of a first order reaction is:", opts:["Dependent on initial concentration","Independent of initial concentration","Always 0.693 seconds","Proportional to concentration squared"], correct:1},
+      {q:"The SI unit of K for a first order reaction is:", opts:["mol L⁻¹ s⁻¹","s⁻¹","mol⁻¹ s⁻¹","L mol⁻¹"], correct:1},
+      {q:"Degradation of a drug reservoir in a suspension (with excess solid drug) follows:", opts:["First order kinetics","Second order kinetics","Pseudo-zero order kinetics","Third order kinetics"], correct:2},
+      {q:"For a first order reaction, plotting log(a−x) vs time gives a straight line whose slope is:", opts:["+K", "−K/2.303","+K/2.303","−K"], correct:1},
+      {q:"Which of these is NOT a recognised method for determining reaction order?", opts:["Substitution method","Data plotting method","Initial rate method","Titration endpoint method"], correct:3},
+      {q:"Epimerization of tetracycline (A ⇌ B) is a classic example of a/an:", opts:["Consecutive reaction","Opposing (reversible) reaction","Parallel reaction","Zero order reaction"], correct:1},
+      {q:"Degradation of chlorbenzodiazepine to a lactam and then to benzophenone (A→B→C) is an example of a/an:", opts:["Opposing reaction","Parallel reaction","Consecutive reaction","Pseudo-first order reaction"], correct:2},
+      {q:"Purified insulin degrading simultaneously by deamidation and polymerization is an example of a/an:", opts:["Consecutive reaction","Parallel reaction","Opposing reaction","Zero order reaction"], correct:1},
+      {q:"For a second order reaction where a=b, plotting 1/(a−x) vs time gives a straight line with slope equal to:", opts:["K","−K","2K","K/2.303"], correct:0},
+      {q:"In the initial rate method, a straight-line graph of rate vs concentration indicates:", opts:["Zero order","First order","Second order","Third order"], correct:1},
+      {q:"Photolysis of cefotaxime is a pharmaceutical example of a:", opts:["Zero order reaction","First order reaction","Second order reaction","Consecutive reaction"], correct:0},
+    ]
+  },
+  {
+    id:'models',
+    color:'#D9A441',
+    num:'02',
+    title:'Pharmacokinetic Compartment Models',
+    desc:'One, two and three-compartment open models, apparent volume of distribution, and the biphasic/triphasic curves.',
+    short:[
+      {q:"What is a pharmacokinetic model?", accept:["mathematical","quantitative","time course"], a:"A mathematical description of a biological system, expressing quantitative relationships for the time course of a drug in the body."},
+      {q:"List the three types of pharmacokinetic models.", accept:["compartment","non-compartment","physiological"], a:"Compartment model, non-compartment model, and physiological model."},
+      {q:"Define a 'compartment' in pharmacokinetics.", accept:["tissues","blood flow","drug affinity","not a real"], a:"A group of tissues with similar blood flow and drug affinity; it is not a real physiological or anatomic region."},
+      {q:"Write the equation relating amount of drug (A), plasma concentration (Cp) and volume of distribution (Vd).", accept:["a = cp","cp x vd","cp*vd"], a:"A = Cp × Vd."},
+      {q:"State one key assumption of the one-compartment open model.", accept:["instant","homogenous","equilibrium"], a:"Instant and homogeneous distribution; the drug rapidly equilibrates between blood and other tissues."},
+      {q:"What two phases appear on the concentration-time curve of a two-compartment model?", accept:["distribution","elimination","biphasic"], a:"An initial rapid distribution phase followed by a slower elimination phase (a biphasic curve)."},
+      {q:"Write the biexponential equation for plasma concentration in a two-compartment model.", accept:["ae","be","α","β"], a:"Cp = A e^(−αt) + B e^(−βt)."},
+      {q:"In the two-compartment model, what do alpha (α) and beta (β) represent?", accept:["distribution","elimination"], a:"α is the rate constant for the distribution phase; β is the rate constant for the elimination phase."},
+      {q:"Give the equation for Vdss in terms of Vp, K12 and K21.", accept:["vp(1", "k12/k21"], a:"Vdss = Vp (1 + K12/K21)."},
+      {q:"Which volume of distribution is described as 'the true distribution change in the body, unaffected by elimination'?", accept:["vdss"], a:"Vdss (apparent volume of distribution at steady state)."},
+      {q:"What is the 'flip-flop' model?", accept:["elimination", "absorption"], a:"When the elimination rate constant is much greater than the absorption rate constant during extravascular dosing."},
+      {q:"How many exponential terms are needed to describe the concentration-time curve of a three-compartment model?", accept:["three","triexponential","3"], a:"Three (a triexponential equation: Cp = Ae^(−αt) + Be^(−βt) + Ce^(−γt))."},
+      {q:"Name two organs/tissues typically found in the central compartment.", accept:["blood","heart","brain","liver","kidney","extracellular"], a:"Blood, heart, brain, kidney, liver, extracellular fluid (highly perfused tissues)."},
+    ],
+    mcq:[
+      {q:"The apparent volume of distribution (Vd) is best described as:", opts:["A true anatomical volume","A hypothetical volume, not a real physiological space","Always equal to plasma volume","Always equal to total body water"], correct:1},
+      {q:"In the two-compartment open model, drug enters and leaves the body only through the:", opts:["Tissue compartment","Central compartment","Deep tissue compartment","Peripheral compartment"], correct:1},
+      {q:"Which compartment equilibrates with the drug more slowly?", opts:["Central compartment","Tissue/peripheral compartment","Both equally","Neither, equilibration is instant"], correct:1},
+      {q:"In the classic two-tank experiment, the tank containing charcoal (drug absorbent) shows an apparent Vd of:", opts:["50 L","75 L","100 L","25 L"], correct:2},
+      {q:"The concentration-time profile of a three-compartment model is described as:", opts:["Monophasic","Biphasic","Triphasic","Linear"], correct:2},
+      {q:"Insulin given intravenously is best described by a:", opts:["One-compartment model","Two-compartment model","Three-compartment model","Zero-compartment model"], correct:2},
+      {q:"In the two-compartment model, the relationship between alpha and beta is typically:", opts:["α ≈ β","α >>> β","β >>> α","α = 0"], correct:1},
+      {q:"Vdβ (apparent Vd by area) is calculated as:", opts:["KVp/β","Vp + Vt","D/AUC","Cp × Vd"], correct:0},
+      {q:"Drugs like lidocaine, whose target organ is in the central compartment, risk toxicity because:", opts:["Cp is initially lower than expected","Cp is initially much higher than expected after IV bolus","Vd is always very large","They follow zero order kinetics"], correct:1},
+      {q:"Which of the following is NOT one of the three types of pharmacokinetic models?", opts:["Compartment model","Non-compartment model","Physiological model","Enzymatic model"], correct:3},
+    ]
+  },
+  {
+    id:'dosing',
+    color:'#4C9A6A',
+    num:'03',
+    title:'Dose Administration & Non-Compartmental Analysis',
+    desc:'IV bolus, continuous infusion, extravascular dosing, loading doses, multiple dosing, and AUC-based parameters.',
+    short:[
+      {q:"What assumption does IV bolus dosing make about the rate of absorption?", accept:["negligible","instantaneous"], a:"The entire dose enters the body instantaneously, so absorption rate is assumed negligible."},
+      {q:"Write the log-linear equation for plasma concentration decline after an IV bolus (one-compartment model).", accept:["log c0","ket"], a:"Log C = Log C0 − Ket/2.303."},
+      {q:"What is Css in the context of a continuous IV infusion?", accept:["steady state","plateau"], a:"The steady-state (plateau) plasma concentration reached during constant-rate infusion."},
+      {q:"Give the formula for Css during IV infusion.", accept:["r0","kevd"], a:"Css = R0 / (Ke·Vd)."},
+      {q:"Why is a loading dose given?", accept:["rapidly","quickly", "steady state"], a:"To achieve the steady-state concentration rapidly, rather than waiting several half-lives for it to accumulate."},
+      {q:"Give a formula for calculating a loading dose (DL).", accept:["css","vd","r0/ke"], a:"DL = Css × Vd, or equivalently DL = R0/Ke."},
+      {q:"What two kinetic processes characterize typical extravascular (e.g. oral) dosing?", accept:["first order absorption","first order elimination"], a:"First-order absorption AND first-order elimination."},
+      {q:"In normal (non flip-flop) extravascular dosing, how does the absorption rate constant (Ka) compare to elimination rate constant (K)?", accept:["ka >>","greater"], a:"Ka is much greater than K (Ka >> K)."},
+      {q:"What is the 'residual' (feathering/peeling) method used for?", accept:["ka","absorption rate constant"], a:"To determine the absorption rate constant (Ka) from the absorption phase of an oral concentration-time plot, by subtracting the extrapolated elimination line."},
+      {q:"After how many half-lives of dosing at the half-life interval does concentration typically reach steady state with multiple dosing?", accept:["7","8"], a:"After about 7–8 doses/half-lives."},
+      {q:"Give the formula for average steady-state concentration during multiple dosing.", accept:["fd0","kvdτ"], a:"C∞Av = FD0 / (k·VD·τ)."},
+      {q:"What does MRT (mean residence time) represent, and how is it calculated?", accept:["aumc/auc","average time"], a:"The average time a drug molecule resides in the body; MRT = AUMC/AUC."},
+      {q:"What is mean absorption time (MAT)?", accept:["mrtev","mrtiv"], a:"MAT = MRTev − MRTiv, the extra time added by the extravascular absorption process."},
+    ],
+    mcq:[
+      {q:"IV infusion combined with first-order elimination is a classic example of:", opts:["Zero order absorption, first order elimination","First order absorption, zero order elimination","Zero order elimination only","First order absorption and elimination"], correct:0},
+      {q:"If an IV infusion is stopped, plasma concentration then declines by a:", opts:["Zero order process","First order process","Second order process","It stays constant"], correct:1},
+      {q:"Under steady-state conditions during continuous infusion, the fraction of drug absorbed equals the fraction:", opts:["Bound to protein","Eliminated from the body","Distributed to tissue","Remaining in the syringe"], correct:1},
+      {q:"Without a loading dose, reaching 90% of Css takes approximately how many half-lives?", opts:["1.0","2.0","3.32","6.65"], correct:2},
+      {q:"Which parameter chiefly reflects the RATE of drug absorption after oral dosing?", opts:["AUC","Tmax","Clearance","Vd"], correct:1},
+      {q:"The area under the curve (AUC 0→∞) after a single extravascular dose is given by:", opts:["FD0/(VDk)","Css × Vd","KeVd","D/A+B"], correct:0},
+      {q:"Non-compartmental (model-independent) clearance is calculated as:", opts:["Cl = Ke × Vd only","Cl = FD0/AUC(0–∞)","Cl = Cmax/Tmax","Cl = Vd/t1/2"], correct:1},
+      {q:"Mean Residence Time (MRT) is calculated as:", opts:["AUC/AUMC","AUMC/AUC","Dose/AUC","Cmax/AUC"], correct:1},
+      {q:"'Non-compartmental analysis' is also known as the:", opts:["Model-dependent method","Model-independent method","Compartmental method","Physiological method"], correct:1},
+      {q:"A drug given by IV bolus follows elimination kinetics that are typically:", opts:["Zero order","First order","Second order","Mixed order always"], correct:1},
+    ]
+  },
+  {
+    id:'nonlinear',
+    color:'#E4572E',
+    num:'04',
+    title:'Non-Linear PK & Disease-State Effects',
+    desc:'Michaelis-Menten (capacity-limited) kinetics, and how liver, kidney and heart disease alter drug pharmacokinetics.',
+    short:[
+      {q:"Give another name for non-linear pharmacokinetics.", accept:["capacity","dose-dependent","saturation","mixed order"], a:"Capacity-limited, dose-dependent, saturation, or mixed-order pharmacokinetics."},
+      {q:"Write the Michaelis-Menten equation.", accept:["vmax","km"], a:"dC/dt = −Vmax·C / (Km + C)."},
+      {q:"What does Km represent physically?", accept:["half","0.5 vmax"], a:"The concentration at which the reaction rate is half of Vmax."},
+      {q:"At low drug concentrations (C << Km), the Michaelis-Menten equation reduces to which order of kinetics?", accept:["first"], a:"First order kinetics."},
+      {q:"At high drug concentrations (C >> Km), the Michaelis-Menten equation reduces to which order of kinetics?", accept:["zero"], a:"Zero order kinetics."},
+      {q:"Name a drug that shows dose-dependent (non-linear) kinetics due to enzyme/cofactor saturation.", accept:["phenytoin","theophylline","alcohol"], a:"Phenytoin, theophylline, or alcohol."},
+      {q:"State one characteristic feature of non-linear pharmacokinetics regarding AUC.", accept:["not proportional"], a:"AUC is not proportional to the administered dose."},
+      {q:"How does reduced liver blood flow affect a high-extraction drug like propranolol?", accept:["bioavailability","increase"], a:"It reduces first-pass metabolism, increasing the drug's bioavailability and systemic exposure."},
+      {q:"How does hypoalbuminemia in chronic liver disease affect free drug concentration?", accept:["free","unbound","increase"], a:"It reduces protein binding, increasing the free/unbound fraction of the drug in plasma."},
+      {q:"How does decreased GFR in renal disease affect a drug's elimination half-life?", accept:["increase","longer"], a:"It decreases renal clearance, which increases (prolongs) the drug's plasma half-life."},
+      {q:"What shape does the concentration–response curve take when concentration is plotted on a semilogarithmic (log) scale?", accept:["sigmoid"], a:"A sigmoidal shape."},
+      {q:"What are the two main PK changes seen in congestive heart failure?", accept:["volume of distribution","clearance"], a:"A reduction in the volume of distribution and impairment of clearance."},
+    ],
+    mcq:[
+      {q:"Non-linear pharmacokinetics may arise from saturation of:", opts:["Renal blood flow only","An enzyme- or carrier-mediated transport system","Gastric pH regulation","Cardiac output"], correct:1},
+      {q:"Griseofulvin shows non-linear absorption mainly because it is:", opts:["Highly water soluble","Solubility/dissolution-rate limited","Actively secreted in urine","Metabolized by CYP2D6 only"], correct:1},
+      {q:"Carbamazepine's decreasing plasma concentration with repeated dosing is due to:", opts:["Enzyme inhibition","Enzyme induction (autoinduction)","Renal failure","Increased protein binding"], correct:1},
+      {q:"The main pharmacokinetic changes seen in heart failure are:", opts:["Increased Vd and increased clearance","Reduced Vd and impaired clearance","No change in either parameter","Increased bioavailability only"], correct:1},
+      {q:"Uremia's primary effect on GI drug absorption is to:", opts:["Increase absorption","Decrease absorption","Have no effect","Only affect IV drugs"], correct:1},
+      {q:"Reduced hepatic blood flow chiefly affects the clearance of drugs that are:", opts:["Renally eliminated only","Unrestrictively (flow-limited) metabolized","Not metabolized at all","Excreted unchanged in bile only"], correct:1},
+      {q:"As drug dose/concentration increases, the increase in pharmacological effect typically follows:", opts:["A constant linear increase forever","The law of diminishing returns, reaching a maximum","An exponential increase without limit","No predictable pattern"], correct:1},
+      {q:"Chronic liver disease commonly causes which change in serum proteins?", opts:["Hyperalbuminemia","Hypoalbuminemia","No change in albumin","Increased globulin only, no change in albumin"], correct:1},
+      {q:"Oedema or ascites primarily increases the Vd of drugs that are:", opts:["Highly lipophilic","Highly water soluble","Highly protein bound","Poorly absorbed"], correct:1},
+      {q:"'Steady state' during chronic/repeated drug dosing is reached when:", opts:["The dose is doubled","Rate of administration equals rate of elimination","Absorption stops completely","Vd becomes zero"], correct:1},
+    ]
+  },
+  {
+    id:'pgx-ba',
+    color:'#8E6FBF',
+    num:'05',
+    title:'Pharmacogenetics & Bioavailability/Bioequivalence',
+    desc:'Genetic variation in drug response, metabolizer phenotypes, and how bioavailability & bioequivalence are defined and tested.',
+    short:[
+      {q:"Define pharmacogenetics.", accept:["hereditary","genetic","response to drugs"], a:"The study of the influence of hereditary/genetic factors on an individual's response to drugs."},
+      {q:"How does pharmacogenetics differ from pharmacogenomics?", accept:["single gene","multiple genes","population"], a:"Pharmacogenetics focuses on a single gene's effect on drug response; pharmacogenomics considers multiple genes, often at a population level."},
+      {q:"Name the four metabolizer phenotypes.", accept:["poor","intermediate","extensive","ultrarapid"], a:"Poor, Intermediate, Extensive, and Ultrarapid metabolizers."},
+      {q:"What clinical risk exists for an infant breastfed by an ultrarapid CYP2D6 metabolizer mother taking codeine?", accept:["morphine","respiratory depression","toxicity"], a:"Excessive conversion of codeine to morphine in the mother, causing potentially fatal respiratory depression in the breastfed infant."},
+      {q:"Which CYP450 enzyme's polymorphism affects warfarin dosing requirements?", accept:["cyp2c9"], a:"CYP2C9 (variants reduce metabolism of S-warfarin, requiring lower maintenance doses)."},
+      {q:"Define bioavailability.", accept:["rate","extent","systemic circulation"], a:"The rate and extent to which the active drug is absorbed from a dosage form and becomes available at the site of action."},
+      {q:"Write the formula for absolute bioavailability.", accept:["aucpo","auciv"], a:"F = (AUCpo/Dpo) / (AUCiv/Div)."},
+      {q:"What is the key difference between absolute and relative bioavailability?", accept:["iv","two non-iv","reference"], a:"Absolute bioavailability compares a dosage form to an IV dose (F=100%); relative bioavailability compares two non-IV formulations to each other."},
+      {q:"State the FDA's statistical rule (the '80/125 rule') for establishing bioequivalence.", accept:["80","125","90%"], a:"The 90% confidence interval for the test/reference ratio of AUC and Cmax must fall entirely within 80–125%."},
+      {q:"Which BCS class(es) of drugs may qualify for a biowaiver (in vitro bioequivalence only)?", accept:["class i","class 1","class iii","class 3"], a:"BCS Class I (high solubility, high permeability), and in some cases Class III."},
+      {q:"What does Tmax primarily indicate about a drug?", accept:["rate of absorption"], a:"The rate of absorption — the time at which peak plasma concentration is reached."},
+      {q:"What does Cmax need to stay between, for a drug to be both safe and effective?", accept:["minimum effective","minimum toxic"], a:"The minimum effective concentration (MEC) and the minimum toxic concentration (MTC)."},
+    ],
+    mcq:[
+      {q:"Genetic polymorphism is defined as a DNA sequence variation found in at least:", opts:["0.1% of the population","1% of the population","10% of the population","50% of the population"], correct:1},
+      {q:"The term 'pharmacogenetics' was first coined by:", opts:["Kalow (1962)","Vogel (1959)","Pythagoras (510 BCE)","FDA (2010)"], correct:1},
+      {q:"Slow acetylation causing peripheral neuropathy is classically linked to treatment with:", opts:["Warfarin","Isoniazid","Codeine","Clopidogrel"], correct:1},
+      {q:"CYP450 enzymes are estimated to mediate what percentage of phase I drug metabolism?", opts:["About 20%","About 40%","About 78–80%","Nearly 100%"], correct:2},
+      {q:"An IV bolus dose, by definition, has an absolute bioavailability of:", opts:["50%","75%","90%","100%"], correct:3},
+      {q:"Cmax and Tmax are parameters that primarily reflect the:", opts:["Extent of absorption only","Rate of absorption","Route of elimination","Protein binding"], correct:1},
+      {q:"AUC (area under the curve) is the primary measure of the:", opts:["Rate of absorption","Extent of absorption","Onset of action only","Duration of infusion"], correct:1},
+      {q:"Two products are 'bioequivalent' when there is no significant difference in:", opts:["Tablet color and shape","Rate and extent of absorption under similar conditions","Price and packaging","Manufacturer identity"], correct:1},
+      {q:"A BCS Class II drug is characterized by:", opts:["High solubility, high permeability","Low solubility, high permeability","High solubility, low permeability","Low solubility, low permeability"], correct:1},
+      {q:"Poor metabolizers who are given a prodrug typically experience:", opts:["Faster conversion to active drug","Slower conversion to active drug, reduced effect","No effect on prodrug conversion","Immediate toxicity in all cases"], correct:1},
+    ]
+  }
+];
+
+/* ============================================================
+   STATE + PERSISTENCE
+   ============================================================ */
+const STORAGE_KEY = "pcl423_state_v1";
+
+let storageAvailable = true;
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){ storageAvailable = false; }
+  return { name:null, progress:{} };
+}
+function saveState(){
+  if(!storageAvailable) return;
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){
+    storageAvailable = false;
+  }
+}
+
+let state = loadState();
+let route = state.name ? {screen:'home'} : {screen:'gate'};
+let activeQuiz = null; // {sectionId, mode, idx, answers:[], score}
+
+function ensureProgress(sectionId){
+  if(!state.progress[sectionId]) state.progress[sectionId] = {};
+  const p = state.progress[sectionId];
+  if(!p.short) p.short = {status:'new', idx:0, score:0, done:0};
+  if(!p.mcq) p.mcq = {status:'new', idx:0, score:0, done:0};
+  return p;
+}
+
+/* ============================================================
+   RENDER ENGINE
+   ============================================================ */
+const app = document.getElementById('app');
+
+function render(){
+  try{
+    app.innerHTML = '';
+    if(route.screen === 'gate') return renderGate();
+    renderTopbar();
+    if(route.screen === 'home') return renderHome();
+    if(route.screen === 'quiz') return renderQuiz();
+    if(route.screen === 'results') return renderResults();
+  }catch(err){
+    app.innerHTML = `<div class="wrap" style="padding-top:60px;text-align:center;">
+      <p style="color:var(--slate);font-size:0.85rem;">Something went wrong loading this screen.</p>
+      <button class="btn btn-primary btn-sm" style="margin-top:14px;" onclick="route={screen:'home'};render();">Go to topics</button>
+    </div>`;
+    console.error(err);
+  }
+}
+
+function renderTopbar(){
+  const bar = document.createElement('div');
+  bar.className = 'topbar wrap';
+  bar.innerHTML = `
+    <div class="brand">
+      <span class="brand-mark">PCL423<span>.</span></span>
     </div>
+    <div class="user-chip">◆&nbsp; <strong>${escapeHtml(state.name)}</strong></div>
+  `;
+  app.appendChild(bar);
+}
 
-    <!-- Screen 2: Dashboard (Topic Selection) -->
-    <div id="screen-dashboard" class="glass-panel screen">
-        <div class="header-controls">
-            <h2 id="welcome-msg">Dashboard</h2>
-            <button class="btn-secondary" onclick="resetProgress()" style="padding: 8px 16px; font-size: 0.9rem;">Reset Progress</button>
-        </div>
-        <p>Select a topic below to continue from where you left off or start fresh.</p>
-        
-        <div class="grid-2">
-            <div class="topic-card" onclick="selectTopic('topic1')">
-                <h3>Slide 1: Rates & Orders</h3>
-                <p>Reaction kinetics, Half-lives, Compartment Models, and Intravenous Infusions.</p>
-                <div class="progress-container" style="margin-top: 15px;">
-                    <div id="prog-topic1" class="progress-bar"></div>
-                </div>
-            </div>
-            <div class="topic-card" onclick="selectTopic('topic2')">
-                <h3>Slide 2: Clinical PK</h3>
-                <p>ADME, Routes of Administration, Bioavailability, and Pharmacogenetics.</p>
-                <div class="progress-container" style="margin-top: 15px;">
-                    <div id="prog-topic2" class="progress-bar"></div>
-                </div>
-            </div>
-        </div>
+/* ---------- GATE (name entry) ---------- */
+function renderGate(){
+  const el = document.createElement('div');
+  el.className = 'gate';
+  el.innerHTML = `
+    <div class="gate-eyebrow">Clinical Pharmacokinetics · PCL 423</div>
+    <h1>Be <em>completely</em><br/>ready for it.</h1>
+    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, non-linear kinetics, pharmacogenetics and bioequivalence — in one focused revision deck.</p>
+    <form class="name-form" id="nameForm" autocomplete="off">
+      <input type="text" id="nameInput" placeholder="Enter your name to begin" required maxlength="40"/>
+      <button type="submit" class="btn btn-primary">Start studying →</button>
+    </form>
+    <p class="gate-hint">Your progress saves automatically on this device — close the tab any time.</p>
+  `;
+  app.appendChild(el);
+  const form = document.getElementById('nameForm');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const val = document.getElementById('nameInput').value.trim();
+    if(!val) return;
+    state.name = val;
+    saveState();
+    route = {screen:'home'};
+    render();
+  });
+  document.getElementById('nameInput').focus();
+}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const wrap = document.createElement('div');
+  wrap.className = 'wrap';
+
+  let totalDone=0, totalItems=0;
+  SECTIONS.forEach(s=>{
+    const p = ensureProgress(s.id);
+    totalItems += s.short.length + s.mcq.length;
+    totalDone += p.short.done + p.mcq.done;
+  });
+  const pct = totalItems ? Math.round((totalDone/totalItems)*100) : 0;
+
+  wrap.innerHTML = `
+    <div class="home-head">
+      <div class="eyebrow">Welcome back, ${escapeHtml(state.name.split(' ')[0])}</div>
+      <h1>Choose a topic to study</h1>
+      <p>Every topic has a Short Answer mode and an MCQ mode. Work through both to be fully prepared.</p>
+      <div class="overall-bar"><div class="overall-bar-fill" style="width:${pct}%"></div></div>
+      <div class="overall-label">${pct}% of all questions completed · ${totalDone}/${totalItems}</div>
     </div>
+    <div class="topic-list" id="topicList"></div>
+  `;
+  app.appendChild(wrap);
 
-    <!-- Screen 3: Mode Selection -->
-    <div id="screen-mode" class="glass-panel screen">
-        <div class="header-controls">
-            <button class="btn-secondary" onclick="showScreen('screen-dashboard')">← Back</button>
-            <h2 id="mode-title">Select Mode</h2>
-            <div style="width: 80px;"></div>
+  const list = document.getElementById('topicList');
+  SECTIONS.forEach(s=>{
+    const p = ensureProgress(s.id);
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.style.setProperty('--tcolor', s.color);
+    card.innerHTML = `
+      <div class="topic-top">
+        <div>
+          <div class="topic-num">SECTION ${s.num}</div>
+          <div class="topic-title">${s.title}</div>
+          <div class="topic-desc">${s.desc}</div>
         </div>
-        <div class="grid-2">
-            <div class="mode-card" onclick="startSession('flashcards')">
-                <h3>📖 Flashcards</h3>
-                <p>Comprehensive short-answer questions. Flip the card to reveal detailed answers.</p>
-            </div>
-            <div class="mode-card" onclick="startSession('mcq')">
-                <h3>🎯 MCQ Quiz</h3>
-                <p>Test your knowledge with multiple choice questions covering every slide detail.</p>
-            </div>
-        </div>
+      </div>
+      <div class="mode-row">
+        ${modeButtonHtml(s,'short','Short Answer', p.short)}
+        ${modeButtonHtml(s,'mcq','Multiple Choice', p.mcq)}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  list.querySelectorAll('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const sectionId = btn.dataset.section;
+      const mode = btn.dataset.mode;
+      startOrResume(sectionId, mode);
+    });
+  });
+}
+
+function modeButtonHtml(section, mode, label, p){
+  const total = section[mode].length;
+  let badge = `<span class="mode-badge badge-new">Start</span>`;
+  if(p.status === 'done') badge = `<span class="mode-badge badge-done">Done ${p.score}/${total}</span>`;
+  else if(p.done > 0) badge = `<span class="mode-badge badge-progress">Resume</span>`;
+  return `
+    <button class="mode-btn" data-section="${section.id}" data-mode="${mode}">
+      <span class="mlabel">${label} ${badge}</span>
+      <span class="mprog">${p.done}/${total} answered</span>
+    </button>
+  `;
+}
+
+function startOrResume(sectionId, mode){
+  const p = ensureProgress(sectionId);
+  const m = p[mode];
+  if(m.status === 'done'){
+    // restart fresh
+    m.status='new'; m.idx=0; m.score=0; m.done=0; m.answers=[];
+    saveState();
+  }
+  activeQuiz = {sectionId, mode, idx:m.idx||0, score:m.score||0};
+  route = {screen:'quiz'};
+  render();
+}
+
+/* ---------- QUIZ ---------- */
+let quizLocal = { revealed:false, chosen:null, inputVal:'' };
+
+function renderQuiz(){
+  const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
+  const items = section[activeQuiz.mode];
+  const idx = activeQuiz.idx;
+  const item = items[idx];
+  quizLocal = { revealed:false, chosen:null, inputVal:'' };
+
+  const wrap = document.createElement('div');
+  wrap.className = 'wrap';
+
+  wrap.innerHTML = `
+    <div class="back-row"><button class="btn btn-ghost btn-sm" id="backHome">← All topics</button></div>
+    <div class="quiz-topbar">
+      <div class="quiz-meta">${section.title} · ${activeQuiz.mode === 'short' ? 'Short Answer' : 'Multiple Choice'}</div>
+      <div class="quiz-meta">${idx+1} / ${items.length}</div>
     </div>
+    <div class="quiz-progress-track"><div class="quiz-progress-fill" style="width:${((idx)/items.length)*100}%"></div></div>
+    <div class="qcard" id="qcard"></div>
+    <div class="quiz-nav" id="quizNav"></div>
+  `;
+  app.appendChild(wrap);
+  document.getElementById('backHome').addEventListener('click', ()=>{ route={screen:'home'}; render(); });
 
-    <!-- Screen 4: Active Session (Flashcards / MCQ) -->
-    <div id="screen-session" class="glass-panel screen">
-        <div class="header-controls">
-            <button class="btn-secondary" onclick="showScreen('screen-mode')">← Exit</button>
-            <span id="session-counter" class="score-badge">1 / 10</span>
-        </div>
-        
-        <div class="progress-container">
-            <div id="session-progress" class="progress-bar"></div>
-        </div>
+  renderQuestionCard(section, item);
+}
 
-        <!-- Flashcard View -->
-        <div id="view-flashcard" style="display: none;">
-            <div class="flashcard-container" onclick="flipCard()">
-                <div class="flashcard" id="active-flashcard">
-                    <div class="card-face">
-                        <div id="fc-question" class="card-text">Question goes here?</div>
-                        <div class="hint">Click to flip</div>
-                    </div>
-                    <div class="card-back">
-                        <div id="fc-answer" class="card-text">Answer goes here.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="navigation-btns">
-                <button class="btn-secondary" onclick="prevItem()">Previous</button>
-                <button onclick="nextItem()">Next Question</button>
-            </div>
-        </div>
+function renderQuestionCard(section, item){
+  const qcard = document.getElementById('qcard');
+  if(activeQuiz.mode === 'short'){
+    qcard.innerHTML = `
+      <div class="qkicker">Short Answer</div>
+      <div class="qtext">${escapeHtml(item.q)}</div>
+      <div class="sa-input-row">
+        <input type="text" id="saInput" placeholder="Type your answer…" autocomplete="off"/>
+        <button class="btn sa-check" id="saCheck">Check</button>
+      </div>
+      <div id="saFeedback"></div>
+    `;
+    const input = document.getElementById('saInput');
+    const checkBtn = document.getElementById('saCheck');
+    input.focus();
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') doSaCheck(item); });
+    checkBtn.addEventListener('click', ()=> doSaCheck(item));
+    renderQuizNav(section, false);
+  } else {
+    const letters = ['A','B','C','D','E'];
+    qcard.innerHTML = `
+      <div class="qkicker">Multiple Choice</div>
+      <div class="qtext">${escapeHtml(item.q)}</div>
+      <div class="mcq-opts" id="mcqOpts">
+        ${item.opts.map((o,i)=>`
+          <button class="opt" data-i="${i}">
+            <span style="display:flex;align-items:center;gap:12px;"><span class="opt-letter">${letters[i]}</span>${escapeHtml(o)}</span>
+          </button>`).join('')}
+      </div>
+      <div id="mcqFeedback"></div>
+    `;
+    document.querySelectorAll('#mcqOpts .opt').forEach(btn=>{
+      btn.addEventListener('click', ()=> doMcqChoose(item, parseInt(btn.dataset.i)));
+    });
+    renderQuizNav(section, false);
+  }
+}
 
-        <!-- MCQ View -->
-        <div id="view-mcq" style="display: none;">
-            <h3 id="mcq-question" style="text-align: left; margin-bottom: 10px;">Question goes here?</h3>
-            <div id="mcq-options" class="mcq-options">
-                <!-- Options injected via JS -->
-            </div>
-            <div class="navigation-btns">
-                <button class="btn-secondary" onclick="prevItem()">Previous</button>
-                <button id="mcq-next-btn" onclick="nextItem()" style="display: none;">Next Question</button>
-            </div>
-        </div>
+function doSaCheck(item){
+  if(quizLocal.revealed) return;
+  const val = document.getElementById('saInput').value.trim();
+  const norm = val.toLowerCase();
+  const correct = item.accept.some(k => norm.includes(k.toLowerCase())) && val.length>0;
+  quizLocal.revealed = true;
+  recordAnswer(correct);
+  const fb = document.getElementById('saFeedback');
+  fb.innerHTML = `
+    <div class="feedback ${correct?'correct':'wrong'}">
+      <span>${correct ? '✓' : '✕'}</span>
+      <div><b>${correct ? 'Good — that is right.' : 'Not quite.'}</b>${escapeHtml(item.a)}</div>
+    </div>`;
+  document.getElementById('saInput').disabled = true;
+  document.getElementById('saCheck').disabled = true;
+  renderQuizNav(SECTIONS.find(s=>s.id===activeQuiz.sectionId), true);
+}
+
+function doMcqChoose(item, i){
+  if(quizLocal.revealed) return;
+  quizLocal.revealed = true;
+  quizLocal.chosen = i;
+  const correct = i === item.correct;
+  recordAnswer(correct);
+  document.querySelectorAll('#mcqOpts .opt').forEach((btn,bi)=>{
+    btn.disabled = true;
+    if(bi === item.correct) btn.classList.add('opt-correct');
+    if(bi === i && i !== item.correct) btn.classList.add('opt-wrong');
+    if(bi === i) btn.classList.add('chosen');
+  });
+  const fb = document.getElementById('mcqFeedback');
+  fb.innerHTML = `
+    <div class="feedback ${correct?'correct':'wrong'}">
+      <span>${correct ? '✓' : '✕'}</span>
+      <div><b>${correct ? 'Correct.' : 'Not quite — correct answer highlighted above.'}</b></div>
+    </div>`;
+  renderQuizNav(SECTIONS.find(s=>s.id===activeQuiz.sectionId), true);
+}
+
+function recordAnswer(correct){
+  if(correct) activeQuiz.score += 1;
+  const p = ensureProgress(activeQuiz.sectionId)[activeQuiz.mode];
+  p.done = Math.max(p.done, activeQuiz.idx+1);
+  p.score = activeQuiz.score;
+  p.idx = activeQuiz.idx;
+  p.status = 'progress';
+  saveState();
+}
+
+function renderQuizNav(section, revealed){
+  const nav = document.getElementById('quizNav');
+  const items = section[activeQuiz.mode];
+  const isLast = activeQuiz.idx >= items.length-1;
+  nav.innerHTML = `
+    <span class="mono" style="font-size:0.75rem; color:var(--slate);">Score: ${activeQuiz.score}</span>
+    <button class="btn btn-gold btn-sm" id="nextBtn" ${revealed? '' : 'disabled'}>${isLast ? 'Finish section' : 'Next question →'}</button>
+  `;
+  const nb = document.getElementById('nextBtn');
+  if(nb) nb.addEventListener('click', ()=>{
+    if(isLast){
+      const p = ensureProgress(activeQuiz.sectionId)[activeQuiz.mode];
+      p.status = 'done';
+      p.score = activeQuiz.score;
+      saveState();
+      route = {screen:'results'};
+      render();
+    } else {
+      activeQuiz.idx += 1;
+      render();
+    }
+  });
+}
+
+/* ---------- RESULTS ---------- */
+function renderResults(){
+  const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
+  const items = section[activeQuiz.mode];
+  const pct = Math.round((activeQuiz.score/items.length)*100);
+  const wrap = document.createElement('div');
+  wrap.className = 'wrap';
+  wrap.innerHTML = `
+    <div class="results-card">
+      <div class="qkicker" style="text-align:center;">${section.title} · ${activeQuiz.mode==='short'?'Short Answer':'Multiple Choice'} complete</div>
+      <div class="score-ring">${pct}%</div>
+      <div class="results-sub">${activeQuiz.score} of ${items.length} correct</div>
+      <div class="results-actions">
+        <button class="btn btn-primary btn-sm" id="retryBtn">Retry this mode</button>
+        <button class="btn btn-ghost btn-sm" id="homeBtn">Back to all topics</button>
+      </div>
     </div>
+  `;
+  app.appendChild(wrap);
+  document.getElementById('retryBtn').addEventListener('click', ()=>{
+    startOrResume(activeQuiz.sectionId, activeQuiz.mode);
+  });
+  document.getElementById('homeBtn').addEventListener('click', ()=>{
+    route = {screen:'home'};
+    render();
+  });
+}
 
-    <!-- Screen 5: Completion -->
-    <div id="screen-complete" class="glass-panel screen">
-        <h1>🎉 Section Completed!</h1>
-        <p>You are 100% prepared for this section.</p>
-        <h2 id="final-score" style="display:none; color: var(--success);">Score: 0/0</h2>
-        <br>
-        <button onclick="showScreen('screen-dashboard')">Return to Dashboard</button>
-    </div>
+/* ---------- utils ---------- */
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
 
-    <script>
-        // --- DATABASE: Comprehensive extraction from provided sources ---
-        const database = {
-            topic1: {
-                flashcards: [
-                    { q: "What is Kinetics in pharmacy?", a: "The study of the rate at which processes occur[span_0](start_span)[span_0](end_span)." },
-                    { q: "What does Pharmacokinetics provide insight into?", a: "It provides insight into mechanisms of changes involved and allows a prediction of the degree of change that will occur after a given time has elapsed[span_1](start_span)[span_1](end_span)." },
-                    { q: "How is the 'Order of Reaction' defined?", a: "It is the number of concentration terms that determine the rate. For Rate = k[A]<sup>x</sup>[B]<sup>y</sup>, the overall order is x + y[span_2](start_span)[span_2](end_span)." },
-                    { q: "What is a Zero Order Reaction and its half-life formula?", a: "A reaction where the rate is independent of concentration (-dCx/dt = k). The half-life formula is t<sub>1/2</sub> = C<sub>0</sub> / 2k[span_3](start_span)[span_3](end_span)." },
-                    { q: "Give an example of a Zero Order process.", a: "Release of drugs from intravenous infusion and transdermal drug delivery systems, or photolysis of cefotaxime[span_4](start_span)[span_4](end_span)." },
-                    { q: "What is the equation for a First Order Reaction?", a: "-dCX/dt = KCx. Integrating gives log(a-x) = log a - kt/2.303[span_5](start_span)[span_5](end_span)." },
-                    { q: "How is half-life calculated for a First Order reaction?", a: "t<sub>1/2</sub> = 0.693 / K[span_6](start_span)[span_6](end_span)." },
-                    { q: "What represents the time required for 10% of a drug to degrade in a first-order reaction?", a: "t<sub>10%</sub> = 0.104 / K, or simplified as t<sub>10%</sub> = 0.152 × t<sub>1/2</sub>[span_7](start_span)[span_7](end_span)." },
-                    { q: "Describe a Pseudo-Zero Order Reaction.", a: "Occurs in solid state suspensions. As drug decomposes in solution, more drug is released from suspended particles so concentration remains constant until particles are exhausted[span_8](start_span)[span_8](end_span)." },
-                    { q: "Describe a Pseudo-First Order Reaction with an example.", a: "A bimolecular reaction made to behave like a first order because one reactant is in great excess (e.g., Aspirin hydrolysis, Decomposition of ascorbic acid tablet)[span_9](start_span)[span_9](end_span)." },
-                    { q: "What is the Apparent Volume of Distribution (Vd)?", a: "The volume of body fluid required to contain a drug if it were uniformly distributed at the concentration observed in blood (Vd = Amount / Cp)[span_10](start_span)[span_10](end_span)." },
-                    { q: "What are the assumptions of a One Compartment Open model?", a: "Instant and homogenous distribution, equilibrium between blood and tissues, and a correlation between pharmacological effect and blood levels[span_11](start_span)[span_11](end_span)." },
-                    { q: "What characterizes the Biphasic graph of a Two Compartment Open Model?", a: "Two linear segments: an initial rapid decline (distribution/alpha phase) and a more gradual decline (elimination/beta phase)[span_12](start_span)[span_12](end_span)." },
-                    { q: "In an IV Continuous Infusion, when does the concentration reach Steady State (Css)?", a: "When the fraction of drug absorbed equals the fraction eliminated. It takes roughly 5 half-lives to reach[span_13](start_span)[span_13](end_span)." },
-                    { q: "What is the Loading Dose (D<sub>L</sub>) formula?", a: "D<sub>L</sub> = Css × Vd or D<sub>L</sub> = R<sub>0</sub> / Ke[span_14](start_span)[span_14](end_span)." },
-                    { q: "What is Mean Residence Time (MRT) in Non-Compartmental Analysis?", a: "The average time for drug molecules to reside in the body. MRT = AUMC / AUC. For IV, MRT<sub>iv</sub> = 1 / K<sub>e</sub>[span_15](start_span)[span_15](end_span)." },
-                    { q: "What is Non-Linear Pharmacokinetics?", a: "Capacity-limited or saturable kinetics. At lower doses, it follows first-order, but at higher doses, it shows zero-order kinetics due to saturation (Mixed Order)[span_16](start_span)[span_16](end_span)." },
-                    { q: "What equation describes non-linear (Michaelis-Menten) kinetics?", a: "dC/dt = -V<sub>max</sub>C / (K<sub>m</sub> + C), where V<sub>max</sub> is max velocity and K<sub>m</sub> is the Michaelis constant[span_17](start_span)[span_17](end_span)." }
-                ],
-                mcq: [
-                    { q: "In a Zero Order reaction, the graph of [X] vs Time results in:", options: ["A curve with increasing slope", "A straight line with slope equal to K", "A logarithmic curve", "A straight line with slope -K/2.303"], a: 1, cite: [span_18](start_span)"[span_18](end_span)" },
-                    { q: "What is the SI unit for the rate constant (K) in a First Order reaction?", options: ["mole L⁻¹s⁻¹", "conc⁻¹ time⁻¹", "sec⁻¹", "mole⁻¹ L s⁻¹"], a: 2, cite: [span_19](start_span)"[span_19](end_span)" },
-                    { q: "If a drug decomposes by 10% in 10 months following first-order kinetics, which equation relates t₁₀% to half-life?", options: ["t₁₀% = 0.5 × t₁/₂", "t₁/₂ = C₀ / 2k", "t₁₀% = 0.152 × t₁/₂", "t₁₀% = 0.693 / K"], a: 2, cite: [span_20](start_span)"[span_20](end_span)" },
-                    { q: "The Initial Rate Method determines the order of reaction by:", options: ["Plotting 1/c against time", "Plotting ln C against time", "Plotting rate of reaction against concentration and finding the gradient at time=0", "Substituting K values into integrated equations"], a: 2, cite: [span_21](start_span)"[span_21](end_span)" },
-                    { q: "In the Two Compartment Open Model, what highly perfused organs represent the Central Compartment?", options: ["Bones, ligaments, teeth", "Cartilage and hair", "Blood, heart, brain, liver", "Tendons and muscles"], a: 2, cite: [span_22](start_span)"[span_22](end_span)" },
-                    { q: "Which of the following causes Non-Linear Pharmacokinetics in drug metabolism?", options: ["Passive diffusion", "Enzyme or cofactor saturation (Capacity limited metabolism)", "High Vd", "Constant IV infusion"], a: 1, cite: [span_23](start_span)"[span_23](end_span)" },
-                    { q: "What is the mathematical description for a drug following a Three Compartment Model?", options: ["Cp = Ae⁻ᵅᵗ + Be⁻ᵝᵗ", "In C = ln C₀ - Kₑt", "Cp = Ae⁻ᵅᵗ + Be⁻ᵝᵗ + Ce⁻ˠᵗ", "X = Kt + constant"], a: 2, cite: [span_24](start_span)"[span_24](end_span)" }
-                ]
-            },
-            topic2: {
-                flashcards: [
-                    { q: "Define Pharmacodynamics vs Pharmacokinetics.", a: "Pharmacokinetics is what the body does to the drug (ADME). Pharmacodynamics is what the drug does to the body (drug-receptor interaction and response)[span_25](start_span)[span_25](end_span)." },
-                    { q: "What is Bioavailability (F)?", a: "The fraction of the administered dose which reaches the systemic circulation unchanged. F = 1 (or 100%) for intravenous administration[span_26](start_span)[span_26](end_span)." },
-                    { q: "What is the difference between Absolute and Relative Bioavailability?", a: "Absolute compares systemic exposure of extravascular route to IV route. Relative compares two non-intravenous formulations of the same drug[span_27](start_span)[span_27](end_span)." },
-                    { q: "What is Clearance (CL)?", a: "The volume of plasma cleared of drug per unit time. It determines the maintenance dose required to obtain a given steady-state concentration[span_28](start_span)[span_28](end_span)." },
-                    { q: "Define Bioequivalence.", a: "The absence of a significant difference in the rate and extent to which the active ingredient becomes available at the site of action when administered at the same molar dose under similar conditions[span_29](start_span)[span_29](end_span)." },
-                    { q: "What is the 80/125 rule for Bioequivalence?", a: "Regulatory standard where the 90% confidence interval for the ratio of the test to reference product geometric means of AUC and Cmax must fall entirely within 80-125%[span_30](start_span)[span_30](end_span)." },
-                    { q: "What is Pharmacogenetics?", a: "The study of the influence of hereditary factors on the response of individuals to drugs, focusing on single gene effects[span_31](start_span)[span_31](end_span)." },
-                    { q: "Describe 'Poor Metabolizers' (PMs).", a: "Individuals who lack a working enzyme. Prodrugs are metabolized slowly (accumulation of prodrug), while active drugs accumulate, increasing toxicity risk[span_32](start_span)[span_32](end_span)." },
-                    { q: "What is P-glycoprotein (P-gp)?", a: "A membrane-bound, ATP-dependent transport system responsible for the efflux of xenobiotics from cells. Overexpression is linked to chemoresistance[span_33](start_span)[span_33](end_span)." },
-                    { q: "How does Hepatic Disease affect pharmacokinetics?", a: "Reduces liver blood flow, causes hepatocyte dysfunction (decreases CYP450), changes serum proteins (hyperalbuminemia reduces binding), and alters bile flow[span_34](start_span)[span_34](end_span)." },
-                    { q: "How does Renal Disease (like Uremia) affect metabolism?", a: "Uremia slows the rate of phase I metabolism and alters first-pass hepatic metabolism, increasing bioavailability and risk of toxicity[span_35](start_span)[span_35](end_span)." },
-                    { q: "Compare IV and Oral routes.", a: "IV offers immediate onset, 100% bioavailability, and avoids the GI tract. Oral is convenient but subject to first-pass metabolism, gastric acid, and variable absorption[span_36](start_span)[span_36](end_span)." },
-                    { q: "What routes bypass the first-pass effect?", a: "Intravenous (IV), Sublingual/Buccal, Transdermal, Inhalation, and partially the Rectal route[span_37](start_span)[span_37](end_span)." },
-                    { q: "What is the best route for an Unconscious patient?", a: "Intravenous (IV) is preferred. IM, SC, Rectal, or Transdermal are alternatives. Oral is strictly avoided due to aspiration risk[span_38](start_span)[span_38](end_span)." }
-                ],
-                mcq: [
-                    { q: "Which pharmacokinetic parameter represents the total drug exposure over time?", options: ["Cmax", "Tmax", "AUC (Area Under the Curve)", "Half-life"], a: 2, cite: [span_39](start_span)"[span_39](end_span)" },
-                    { q: "The regulatory standard for Bioequivalence requires the 90% Confidence Interval for AUC and Cmax to fall within:", options: ["90-110%", "80-125%", "75-150%", "50-100%"], a: 1, cite: [span_40](start_span)"[span_40](end_span)" },
-                    { q: "Which class in the Biopharmaceutics Classification System (BCS) has High Solubility and High Permeability?", options: ["Class I", "Class II", "Class III", "Class IV"], a: 0, cite: [span_41](start_span)"[span_41](end_span)" },
-                    { q: "In Pharmacogenetics, a patient who rapidly metabolizes an active drug into inactive metabolites, risking therapeutic failure, is a:", options: ["Poor Metabolizer", "Intermediate Metabolizer", "Extensive Metabolizer", "Ultrarapid Metabolizer"], a: 3, cite: [span_42](start_span)"[span_42](end_span)" },
-                    { q: "Which enzyme's polymorphism is highly associated with the variable metabolism of S-Warfarin?", options: ["CYP2D6", "CYP2C9", "CYP2C19", "TPMT"], a: 1, cite: [span_43](start_span)"[span_43](end_span)" },
-                    { q: "What effect does Uremia have on drug absorption and metabolism?", options: ["Increases GFR leading to rapid clearance", "Increases plasma protein binding", "Slows phase I metabolism and alters first-pass effect, increasing toxicity risk", "Eliminates the need for dose adjustments"], a: 2, cite: [span_44](start_span)"[span_44](end_span)" },
-                    { q: "Which route of administration provides rapid absorption but avoids the first-pass effect by delivering drugs directly into the systemic circulation under the tongue?", options: ["Oral", "Sublingual", "Intradermal", "Rectal"], a: 1, cite: [span_45](start_span)"[span_45](end_span)" }
-                ]
-            }
-        };
-
-        // --- STATE MANAGEMENT ---
-        let state = {
-            username: '',
-            progress: {
-                topic1: { flashcards: 0, mcq: 0 },
-                topic2: { flashcards: 0, mcq: 0 }
-            },
-            currentTopic: null,
-            currentMode: null,
-            currentIndex: 0,
-            score: 0
-        };
-
-        // --- INITIALIZATION ---
-        window.onload = () => {
-            const savedName = localStorage.getItem('pk_username');
-            const savedProgress = localStorage.getItem('pk_progress');
-            
-            if (savedName && savedProgress) {
-                state.username = savedName;
-                state.progress = JSON.parse(savedProgress);
-                document.getElementById('username-input').value = savedName;
-                showScreen('screen-dashboard');
-                updateDashboard();
-            }
-        };
-
-        function startApp() {
-            const name = document.getElementById('username-input').value.trim();
-            if (!name) return alert("Please enter your name to begin.");
-            
-            state.username = name;
-            localStorage.setItem('pk_username', name);
-            if (!localStorage.getItem('pk_progress')) {
-                localStorage.setItem('pk_progress', JSON.stringify(state.progress));
-            }
-            
-            showScreen('screen-dashboard');
-            updateDashboard();
-        }
-
-        function updateDashboard() {
-            document.getElementById('welcome-msg').innerText = `Welcome, ${state.username}`;
-            
-            // Calculate progress bars
-            const t1_f = state.progress.topic1.flashcards / database.topic1.flashcards.length;
-            const t1_m = state.progress.topic1.mcq / database.topic1.mcq.length;
-            const t1_total = ((t1_f + t1_m) / 2) * 100;
-            document.getElementById('prog-topic1').style.width = `${t1_total}%`;
-
-            const t2_f = state.progress.topic2.flashcards / database.topic2.flashcards.length;
-            const t2_m = state.progress.topic2.mcq / database.topic2.mcq.length;
-            const t2_total = ((t2_f + t2_m) / 2) * 100;
-            document.getElementById('prog-topic2').style.width = `${t2_total}%`;
-        }
-
-        function resetProgress() {
-            if(confirm("Are you sure you want to reset all progress?")) {
-                state.progress = {
-                    topic1: { flashcards: 0, mcq: 0 },
-                    topic2: { flashcards: 0, mcq: 0 }
-                };
-                localStorage.setItem('pk_progress', JSON.stringify(state.progress));
-                updateDashboard();
-            }
-        }
-
-        // --- NAVIGATION ---
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-        }
-
-        function selectTopic(topic) {
-            state.currentTopic = topic;
-            showScreen('screen-mode');
-        }
-
-        function startSession(mode) {
-            state.currentMode = mode;
-            state.currentIndex = state.progress[state.currentTopic][mode];
-            state.score = 0; // Reset session score
-
-            // Check if already completed
-            const total = database[state.currentTopic][mode].length;
-            if (state.currentIndex >= total) {
-                state.currentIndex = 0; // Restart if they click again after finishing
-            }
-
-            document.getElementById('view-flashcard').style.display = mode === 'flashcards' ? 'block' : 'none';
-            document.getElementById('view-mcq').style.display = mode === 'mcq' ? 'block' : 'none';
-            
-            showScreen('screen-session');
-            renderCurrentItem();
-        }
-
-        // --- RENDER LOGIC ---
-        function renderCurrentItem() {
-            const data = database[state.currentTopic][state.currentMode];
-            const total = data.length;
-
-            // Check for completion
-            if (state.currentIndex >= total) {
-                completeSession();
-                return;
-            }
-
-            // Update UI Counters
-            document.getElementById('session-counter').innerText = `${state.currentIndex + 1} / ${total}`;
-            const pct = ((state.currentIndex) / total) * 100;
-            document.getElementById('session-progress').style.width = `${pct}%`;
-
-            if (state.currentMode === 'flashcards') {
-                const item = data[state.currentIndex];
-                document.getElementById('fc-question').innerHTML = item.q;
-                document.getElementById('fc-answer').innerHTML = item.a;
-                document.getElementById('active-flashcard').classList.remove('is-flipped');
-            } else {
-                const item = data[state.currentIndex];
-                document.getElementById('mcq-question').innerHTML = item.q;
-                
-                const optionsContainer = document.getElementById('mcq-options');
-                optionsContainer.innerHTML = '';
-                item.options.forEach((opt, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'mcq-btn';
-                    btn.innerHTML = opt;
-                    btn.onclick = () => checkAnswer(index, btn, item.a, item.cite);
-                    optionsContainer.appendChild(btn);
-                });
-                document.getElementById('mcq-next-btn').style.display = 'none';
-            }
-
-            saveProgress();
-        }
-
-        function flipCard() {
-            document.getElementById('active-flashcard').classList.toggle('is-flipped');
-        }
-
-        function checkAnswer(selectedIndex, btnElement, correctIndex, citeStr) {
-            const btns = document.querySelectorAll('.mcq-btn');
-            btns.forEach(b => b.disabled = true); // lock
-
-            if (selectedIndex === correctIndex) {
-                btnElement.classList.add('correct');
-                state.score++;
-            } else {
-                btnElement.classList.add('wrong');
-                btns[correctIndex].classList.add('correct');
-            }
-            
-            // Append citation to the correct answer text for compliance
-            btns[correctIndex].innerHTML += ` <br><cite>${citeStr}</cite>`;
-            
-            document.getElementById('mcq-next-btn').style.display = 'block';
-        }
-
-        function nextItem() {
-            state.currentIndex++;
-            renderCurrentItem();
-        }
-
-        function prevItem() {
-            if (state.currentIndex > 0) {
-                state.currentIndex--;
-                renderCurrentItem();
-            }
-        }
-
-        function saveProgress() {
-            state.progress[state.currentTopic][state.currentMode] = state.currentIndex;
-            localStorage.setItem('pk_progress', JSON.stringify(state.progress));
-            updateDashboard();
-        }
-
-        function completeSession() {
-            document.getElementById('session-progress').style.width = `100%`;
-            saveProgress(); // Ensure max value is saved
-            
-            if (state.currentMode === 'mcq') {
-                const total = database[state.currentTopic].mcq.length;
-                document.getElementById('final-score').style.display = 'block';
-                document.getElementById('final-score').innerText = `Score: ${state.score} / ${total}`;
-            } else {
-                document.getElementById('final-score').style.display = 'none';
-            }
-            
-            showScreen('screen-complete');
-        }
-    </script>
+render();
+</script>
 </body>
 </html>

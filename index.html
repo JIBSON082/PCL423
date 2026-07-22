@@ -341,9 +341,9 @@
 <script>
 /* ============================================================
    DATA — FULLY COMPREHENSIVE — COVERS EVERY SLIDE OF BOTH PDFs
-   Sections: Kinetics, Models, Dosing, Non-Linear & Disease,
-   Pharmacogenetics & BA/BE, Routes of Administration,
-   Symbols & Parameters, Clinical Applications
+   Sections 1-7: Kinetics, Models, Dosing, Non-Linear & Disease,
+   Pharmacogenetics & BA/BE, Routes, Symbols
+   Section 8: Clinical Pharmacokinetics Fundamentals (EXPANDED)
    ============================================================ */
 const SECTIONS = [
   // ========= SECTION 1: RATES & ORDERS OF REACTION =========
@@ -374,10 +374,6 @@ const SECTIONS = [
       {q:"What is the initial rate method for determining order?", a:"Plot rate of reaction vs concentration. If straight line → first order. If curve → second order. If independent of concentration → zero order."},
       {q:"What is t10% and how does it relate to t1/2?", a:"t10% is the time for 10% of drug to degrade (reasonable degradation limit). For first order: t10% = 0.104/K = 0.152 × t1/2."},
       {q:"What is the substitution method for determining reaction order?", a:"Data is substituted into integrated rate equations for various orders. The order that gives a constant K value is the reaction order."},
-      {q:"What is the difference between rate and order of reaction?", a:"Rate is the velocity of a reaction (moderated by K). Order is the manner in which concentration influences the rate (n)."},
-      {q:"For a reaction A → B, write the rate equation.", a:"Rate = −dA/dt = dB/dt = K[A]^n, where n is the order."},
-      {q:"What happens when a suspension changes to first-order kinetics?", a:"Once all suspended particles have been converted into drug in solution, the system changes from zero-order to first-order kinetics."},
-      {q:"In a consecutive reaction A→B→C where KAB < KBC, which step is rate-determining?", a:"The conversion of A to B (KAB) is the rate-determining step because it is slower."},
     ],
     mcq:[
       {q:"A reaction whose rate is independent of the concentration of reactant is:", opts:["Zero order","First order","Second order","Pseudo-first order"], correct:0},
@@ -395,8 +391,6 @@ const SECTIONS = [
       {q:"The half-life for a zero-order reaction depends on:", opts:["Initial concentration","Rate constant only","Temperature only","It is always constant"], correct:0},
       {q:"In a consecutive reaction A→B→C where KBC > KAB, the rate-determining step is:", opts:["A→B","B→C","Both equally","Neither"], correct:0},
       {q:"The half-life determination method formula for calculating reaction order is:", opts:["n = log(t1/2(1)/t1/2(2))/log(a2/a1) + 1","n = log(t1/2(1)/t1/2(2)) / log(a1/a2)","n = t1/2(1)/t1/2(2) × a2/a1","n = a1/a2 × t1/2(2)/t1/2(1)"], correct:0},
-      {q:"A reaction with rate = K[A]^0 is:", opts:["Zero order","First order","Second order","Third order"], correct:0},
-      {q:"A reaction with rate = K[A]^2 is:", opts:["Zero order","First order","Second order","Pseudo-first order"], correct:2},
     ]
   },
   // ========= SECTION 2: PHARMACOKINETIC MODELS =========
@@ -427,8 +421,6 @@ const SECTIONS = [
       {q:"Why is understanding Vd in two-compartment models clinically important?", a:"If target organ is in central compartment (e.g. lidocaine), Cp can be much higher than expected, causing toxicity. For drugs like digoxin (target in tissue compartment), high Cp may not cause toxicity."},
       {q:"What is the AUC equation for a two-compartment model?", a:"AUC = D / (K × Vp), where D is dose, K is elimination rate, and Vp is central volume."},
       {q:"How is the distribution rate constant (α) determined from a concentration-time graph?", a:"Using the residual/feathering/peeling method — subtracting the extrapolated elimination line from the initial curve."},
-      {q:"What is the volume of the tissue compartment (Vt) in a two-compartment model?", a:"Vt = Vp × (K12/K21)."},
-      {q:"What is the relationship between Vds and Vp in a two-compartment model?", a:"Vds = Vp + Vt = Vp (1 + K12/K21)."},
     ],
     mcq:[
       {q:"The apparent volume of distribution (Vd) is best described as:", opts:["A true anatomical volume","A hypothetical volume, not a real physiological space","Always equal to plasma volume","Always equal to total body water"], correct:1},
@@ -446,7 +438,6 @@ const SECTIONS = [
       {q:"Vdss is calculated as Vp (1 + K12/K21). This represents:", opts:["Volume of central compartment only","True distribution volume unaffected by elimination","Volume of tissue compartment only","Total body water"], correct:1},
       {q:"Which statement about the central compartment is TRUE?", opts:["Contains poorly perfused tissues","Drug equilibrates slowly here","Contains highly perfused organs like heart and brain","It is the same as the tissue compartment"], correct:2},
       {q:"For a drug that distributes extensively into tissues, the Vd will be:", opts:["Low","High","Equal to plasma volume","Zero"], correct:1},
-      {q:"The tissue compartment volume (Vt) is calculated as:", opts:["Vp × K12/K21","Vp × K21/K12","Vp + Vdss","Dose/Cp"], correct:0},
     ]
   },
   // ========= SECTION 3: DOSE ADMINISTRATION & NON-COMPARTMENTAL =========
@@ -477,8 +468,6 @@ const SECTIONS = [
       {q:"In non-compartmental analysis, what is the relationship between MRTev and MRTiv?", a:"MRTev = MRTiv + MAT (mean absorption time)."},
       {q:"What is the equation for plasma concentration during IV infusion?", a:"C = (R0/(Ke·Vd)) × (1 − e^(−Ke·t))."},
       {q:"What happens when IV infusion is discontinued?", a:"Plasma drug concentration declines by a first-order process."},
-      {q:"What is the equation for a one-compartment IV bolus?", a:"C = C0 × e^(−Ke·t) or ln C = ln C0 − Ke·t."},
-      {q:"What is the relationship between AUC, C0, and Ke?", a:"AUC = C0/Ke."},
     ],
     mcq:[
       {q:"IV infusion combined with first-order elimination is a classic example of:", opts:["Zero order absorption, first order elimination","First order absorption, zero order elimination","Zero order elimination only","First order absorption and elimination"], correct:0},
@@ -493,9 +482,6 @@ const SECTIONS = [
       {q:"A drug given by IV bolus follows elimination kinetics that are typically:", opts:["Zero order","First order","Second order","Mixed order always"], correct:1},
       {q:"The loading dose formula DL = Css × Vd is used to:", opts:["Maintain steady state over time","Achieve steady state concentration rapidly","Reduce the elimination rate","Increase the dosing interval"], correct:1},
       {q:"The time to reach steady state is determined by:", opts:["The dose given","The elimination half-life","The absorption rate","The volume of distribution"], correct:1},
-      {q:"For a one-compartment IV bolus, AUC is equal to:", opts:["C0/Ke","C0 × Ke","Dose/Vd","C0 × t1/2"], correct:0},
-      {q:"The equation C = C0 × e^(−Ke·t) describes:", opts:["IV infusion","IV bolus","Oral absorption","Renal excretion"], correct:1},
-      {q:"A loading dose is NOT needed when:", opts:["Rapid effect is required","The drug has a narrow therapeutic index","The drug has a long half-life","The patient is in an emergency"], correct:1},
     ]
   },
   // ========= SECTION 4: NON-LINEAR PK & DISEASE-STATE EFFECTS =========
@@ -526,8 +512,6 @@ const SECTIONS = [
       {q:"What is the effect of dehydration or muscle wasting on Vd?", a:"They increase Vd, potentially causing unexpectedly high plasma concentrations and toxicity at usual doses."},
       {q:"What is the effect of uremia on GI absorption?", a:"Uremia decreases GI absorption of drugs and alters first-pass hepatic metabolism, reducing first-pass metabolism and increasing bioavailability."},
       {q:"How does renal failure affect morphine's pharmacokinetics?", a:"Morphine metabolism is slower and excretion of its active metabolite (M-6-glucuronide) is impaired, leading to accumulation and increased toxicity (prolonged narcosis, respiratory depression)."},
-      {q:"What is the effect of liver disease on drug metabolism?", a:"Acute liver impairment interferes with drug metabolism and elimination; chronic liver impairment affects all PK parameters. Hepatocyte dysfunction decreases CYP450 enzymes."},
-      {q:"What is the effect of cholestatic conditions on drug clearance?", a:"Bile flow reduction impairs clearance and metabolism of drugs and metabolites into the bile (e.g. erythromycin, simvastatin, ibuprofen, methotrexate)."},
     ],
     mcq:[
       {q:"Non-linear pharmacokinetics may arise from saturation of:", opts:["Renal blood flow only","An enzyme- or carrier-mediated transport system","Gastric pH regulation","Cardiac output"], correct:1},
@@ -544,8 +528,6 @@ const SECTIONS = [
       {q:"In patients with renal failure, which drug's active metabolite accumulation causes toxicity?", opts:["Warfarin","Morphine","Propranolol","Diazepam"], correct:1},
       {q:"Saturation of tissue binding sites (e.g. imipramine) results in:", opts:["Increased Vd","Decreased Vd","No change in Vd","Increased clearance"], correct:1},
       {q:"Active tubular secretion saturation (e.g. penicillin) results in:", opts:["Increased renal clearance","Decreased renal clearance","No change in clearance","Increased Vd"], correct:1},
-      {q:"In cholestatic conditions, which drugs may have impaired clearance?", opts:["Morphine only","Erythromycin, simvastatin, ibuprofen","Insulin only","All water-soluble drugs"], correct:1},
-      {q:"The law of diminishing returns in pharmacology means:", opts:["Effect increases linearly with dose","Effect reaches a maximum plateau","Effect decreases with higher dose","Effect is unpredictable"], correct:1},
     ]
   },
   // ========= SECTION 5: PHARMACOGENETICS & BA/BE =========
@@ -576,8 +558,6 @@ const SECTIONS = [
       {q:"What is P-glycoprotein and its clinical significance?", a:"A membrane-bound ATP-dependent efflux transporter that pumps drugs out of cells; overexpressed in cancer cells causing chemoresistance."},
       {q:"What percentage of adverse drug reactions are mediated by Phase I metabolism enzymes?", a:"Approximately 59%."},
       {q:"What is the difference between pharmaceutical equivalents and pharmaceutical alternatives?", a:"Equivalents: same active ingredient, strength, dosage form, route (may differ in excipients). Alternatives: same therapeutic moiety but different salt, ester, or dosage form."},
-      {q:"What is the difference between bioequivalent and therapeutic equivalent products?", a:"Bioequivalent products have no significant difference in rate and extent of absorption. Therapeutic equivalents must be pharmaceutical equivalents AND bioequivalents, with same clinical effect and safety profile."},
-      {q:"What is the Reference Listed Drug (RLD)?", a:"The approved drug product designated by regulatory authorities as the standard to which generic versions must be compared to prove bioequivalence."},
     ],
     mcq:[
       {q:"Genetic polymorphism is defined as a DNA sequence variation found in at least:", opts:["0.1% of the population","1% of the population","10% of the population","50% of the population"], correct:1},
@@ -595,8 +575,6 @@ const SECTIONS = [
       {q:"P-glycoprotein efflux is clinically relevant in:", opts:["Drug absorption from the gut","Drug distribution to the brain","Cancer drug resistance","All of the above"], correct:3},
       {q:"Pharmaceutical alternatives include:", opts:["Same active ingredient, different salt or ester","Same dosage form and strength","Same excipients","Identical color and shape"], correct:0},
       {q:"A drug with low solubility and high permeability belongs to BCS:", opts:["Class I","Class II","Class III","Class IV"], correct:1},
-      {q:"The '80/125 rule' applies to which parameters?", opts:["Tmax and Cmax","AUC and Cmax","AUC and Tmax","Vd and CL"], correct:1},
-      {q:"A therapeutic equivalent must be:", opts:["Pharmaceutically equivalent and bioequivalent","Only pharmaceutically equivalent","Only bioequivalent","Same price"], correct:0},
     ]
   },
   // ========= SECTION 6: ROUTES OF ADMINISTRATION =========
@@ -637,16 +615,6 @@ const SECTIONS = [
       {q:"What is the 'flip-flop' phenomenon in extravascular dosing?", a:"When elimination rate constant (Ke) is much greater than absorption rate constant (Ka) — the apparent absorption rate is actually the elimination rate."},
       {q:"What are repository preparations and why are they used?", a:"Preparations given subcutaneously that slowly release drug over time (e.g. hormonal contraceptives) — used to avoid too intense or too short a response."},
       {q:"What is the primary reason for using IV infusion over IV bolus?", a:"Provides steady-state supply; avoids excessively high drug concentrations; safer for irritant drugs and drugs with short half-lives."},
-      {q:"What is the volume range for IM injections?", a:"2-5 mL."},
-      {q:"What is the volume range for SC injections?", a:"1-2 mL."},
-      {q:"What is the onset characteristic of IV administration?", a:"Immediate."},
-      {q:"What is the onset characteristic of IM administration?", a:"Rapid."},
-      {q:"What is the onset characteristic of SC administration?", a:"Slow."},
-      {q:"What is the effect of skin hydration on percutaneous absorption?", a:"Hydration of the skin by soaking in water or occluding the skin surface promotes drug absorption."},
-      {q:"What is the effect of aging on percutaneous absorption?", a:"Aging and environmental factors that lead to dehydration of the skin can retard drug absorption."},
-      {q:"What is the disintegration time for sublingual nitroglycerin tablets?", a:"2 minutes."},
-      {q:"What is the disintegration time for buccal tablets?", a:"4 hours."},
-      {q:"Why are suppositories used frequently in children and the elderly?", a:"They are useful when oral administration is difficult; common in children and the aged."},
     ],
     mcq:[
       {q:"The route that bypasses first-pass hepatic metabolism entirely is:", opts:["Oral","Rectal","Intravenous","Sublingual"], correct:2},
@@ -669,12 +637,6 @@ const SECTIONS = [
       {q:"Dermatologic preparations are affected by skin hydration which:", opts:["Decreases absorption","Increases absorption","Has no effect","Causes drug precipitation"], correct:1},
       {q:"Which route is commonly used for the tuberculin test?", opts:["Intravenous","Intradermal","Subcutaneous","Intramuscular"], correct:1},
       {q:"Sterile preparations are required for which routes?", opts:["Oral and rectal","All parenteral routes","Topical only","Sublingual only"], correct:1},
-      {q:"IM injection volume typically ranges from:", opts:["0.1-0.5 mL","1-2 mL","2-5 mL","5-10 mL"], correct:2},
-      {q:"SC injection volume typically ranges from:", opts:["0.1-0.5 mL","1-2 mL","2-5 mL","5-10 mL"], correct:1},
-      {q:"Sublingual nitroglycerin tablets disintegrate in approximately:", opts:["30 seconds","2 minutes","10 minutes","30 minutes"], correct:1},
-      {q:"Buccal tablets are designed to disintegrate in:", opts:["2 minutes","30 minutes","4 hours","24 hours"], correct:2},
-      {q:"Which route has the slowest onset of action?", opts:["IV","IM","Oral","Inhalation"], correct:2},
-      {q:"IV administration is described as having what bioavailability?", opts:["50%","75%","90%","100%"], correct:3},
     ]
   },
   // ========= SECTION 7: PHARMACOKINETIC SYMBOLS & PARAMETERS =========
@@ -715,11 +677,6 @@ const SECTIONS = [
       {q:"What is the relationship between AUC and clearance?", a:"AUC = Dose / CL."},
       {q:"What is MRT (Mean Residence Time) in one-compartment model?", a:"MRTiv = 1/Ke."},
       {q:"What is MAT (Mean Absorption Time)?", a:"MAT = MRTev − MRTiv; represents the extra time added by the extravascular absorption process."},
-      {q:"What is the unit for AUC?", a:"mg·h/L."},
-      {q:"What is the unit for Vd?", a:"L or L/kg."},
-      {q:"What is the unit for CL?", a:"L/h or mL/min."},
-      {q:"What is the unit for Ke?", a:"h⁻¹."},
-      {q:"What is the unit for t1/2?", a:"h or min."},
     ],
     mcq:[
       {q:"The symbol Cp represents:", opts:["Peak plasma concentration","Plasma concentration at any time","Trough concentration","Volume of distribution"], correct:1},
@@ -738,229 +695,136 @@ const SECTIONS = [
       {q:"MAT (Mean Absorption Time) is calculated as:", opts:["MRTiv - MRTev","MRTev - MRTiv","AUCiv - AUCev","Cmaxiv - Cmaxev"], correct:1},
       {q:"The symbol F represents:", opts:["Fraction of dose absorbed","Fraction of drug excreted","Fraction of drug bound","Fraction of drug metabolized"], correct:0},
       {q:"AUC is directly proportional to:", opts:["Clearance","(F × Dose) / CL","Cmax","Tmax"], correct:1},
-      {q:"The unit of AUC is:", opts:["mg/L","mg·h/L","L/h","h⁻¹"], correct:1},
-      {q:"The unit of Vd is:", opts:["mg/L","L or L/kg","h⁻¹","L/h"], correct:1},
-      {q:"Cmin represents:", opts:["Peak concentration","Trough concentration at steady state","Initial concentration","Average concentration"], correct:1},
-      {q:"After 5 half-lives, what percentage of drug remains?", opts:["50%","25%","12.5%","<5%"], correct:3},
     ]
   },
-  // ========= SECTION 8: CLINICAL PHARMACOKINETICS & APPLICATIONS =========
+  // ========= SECTION 8: CLINICAL PHARMACOKINETICS FUNDAMENTALS (EXPANDED) =========
   {
     id:'clinical',
     color:'#FF6B9D',
     num:'08',
-    title:'Clinical Pharmacokinetics & Applications',
-    desc:'Learning outcomes, physicochemical properties (pKa, lipophilicity, solubility, ionization, protein binding), membrane properties, drug disposition, TDM, and practical pharmacy applications.',
+    title:'Clinical Pharmacokinetics Fundamentals',
+    desc:'Definition of PK, clinical PK, pharmacodynamics, importance, practical applications, drug disposition (ADME), physicochemical properties, membrane properties, drug concentration parameters, AUC, half-life, and therapeutic window.',
     short:[
-      // Learning Outcomes (Page 2)
-      {q:"What are the learning outcomes of clinical pharmacokinetics?", a:"Define PK terminologies; explain physicochemical properties affecting drug action (pKa, lipophilicity, solubility, ionization, protein binding); describe drug fate; compare routes; explain membrane structure and functions; relate membrane properties to drug absorption and distribution."},
-      
-      // Pharmacokinetics Definition (Page 4)
-      {q:"What is the definition of pharmacokinetics?", a:"Study and characterization of time course of drug absorption, distribution, metabolism and excretion and relationship of these processes to intensity and time course of therapeutic and adverse effects."},
-      {q:"What disciplines are applied in pharmacokinetics?", a:"Mathematics and biochemistry are applied to physiology and pharmacology."},
-      {q:"What is pharmacodynamics?", a:"What the drug does to the body in its passage through it — drug-receptor interactions and resultant reactions."},
-      
-      // Clinical Pharmacokinetics (Page 5)
-      {q:"What is clinical pharmacokinetics?", a:"Study of the time course of a drug's movement through the body; application of PK principles in patient management; involves TDM and individualisation of therapy."},
-      {q:"What does clinical pharmacokinetics deal with?", a:"Application of pharmacokinetics to the safe and effective therapeutic management of individual patients."},
-      {q:"What is TDM in clinical pharmacokinetics?", a:"Therapeutic Drug Monitoring — application of pharmacokinetic principles to individualise drug therapy."},
-      
-      // Importance of PK (Page 6)
-      {q:"List 5 uses of pharmacokinetics.", a:"Design dosage regimens; predict therapeutic response; prevent toxicity; determine dosing frequency; individualize therapy; monitor drug therapy; drug development; clinical trials; bioequivalence studies; personalized medicine."},
-      
-      // Practical Applications (Page 7)
-      {q:"List 5 practical applications of pharmacokinetics in pharmacy.", a:"Design dosage regimens; monitor plasma drug concentrations; adjust doses in renal/liver impairment; assess bioequivalence; optimize antimicrobial therapy; support oncology dosing; guide paediatric/geriatric dosing."},
-      
-      // The PK Process (Page 8-9)
-      {q:"What are the four processes of the pharmacokinetic process and their organs?", a:"Absorption (GI tract), Distribution (blood and tissues), Metabolism (liver), Excretion (kidney)."},
-      
-      // Terminologies/Symbols (Page 10-12)
-      {q:"Define dose in pharmacokinetics.", a:"Quantity of drug administered."},
-      {q:"Define bioavailability (F).", a:"Fraction of administered dose reaching systemic circulation."},
-      {q:"Define clearance (CL).", a:"Volume of plasma cleared of drug per unit time."},
-      {q:"Define half-life (t1/2).", a:"Time required for plasma concentration to reduce by half."},
-      {q:"Define volume of distribution (Vd).", a:"Apparent volume occupied by drug in the body."},
-      {q:"Define elimination rate constant (Ke).", a:"Fraction of drug eliminated per unit time."},
-      
-      // Drug Concentration (Page 13)
-      {q:"What is drug concentration (C) and its units?", a:"Amount of drug per unit volume of plasma or blood — units: mg/L, μg/mL, ng/mL."},
-      {q:"What is the formula for drug concentration?", a:"C = Amount / Volume."},
-      {q:"What is plasma drug concentration (Cp)?", a:"Drug concentration measured specifically in plasma."},
-      {q:"What is the clinical importance of Cp?", a:"Therapeutic drug monitoring, bioavailability studies, dose adjustment."},
-      
-      // Initial Concentration C0 (Page 14)
-      {q:"What is initial drug concentration (C0)?", a:"Drug concentration immediately after IV administration."},
-      {q:"How is C0 obtained?", a:"By extrapolating the concentration-time curve back to time zero after IV administration."},
+      // PK Definition & Clinical PK
+      {q:"What is the definition of pharmacokinetics?", a:"Study and characterization of the time course of drug absorption, distribution, metabolism, and excretion, and the relationship of these processes to the intensity and time course of therapeutic and adverse effects of drugs."},
+      {q:"What disciplines does pharmacokinetics apply?", a:"Pharmacokinetics involves the application of mathematics and biochemistry to physiology and pharmacology."},
+      {q:"What is pharmacodynamics?", a:"What the drug does to the body in its passage through it — drug-receptor interactions and the resultant reactions."},
+      {q:"What is clinical pharmacokinetics?", a:"Study of the time course of a drug's movement through the body; understanding of what the body does to the drug; use of PK principles in management of patient drug therapy by predicting and determining plasma concentrations."},
+      {q:"What is Therapeutic Drug Monitoring (TDM)?", a:"Application of pharmacokinetics to individualize drug therapy by monitoring plasma drug concentrations to ensure safe and effective therapeutic management."},
+      // Importance & Practical Applications
+      {q:"List 5 things pharmacokinetics helps with.", a:"Design dosage regimens; predict therapeutic response; prevent toxicity; determine dosing frequency; individualize therapy; monitor drug therapy; drug development; clinical trials; bioequivalence studies; personalized medicine."},
+      {q:"List practical applications of PK in pharmacy.", a:"Design dosage regimens; monitor plasma drug concentrations; adjust doses in renal impairment; adjust doses in liver disease; assess bioequivalence; optimize antimicrobial therapy; support oncology dosing; guide paediatric and geriatric dosing."},
+      // Drug Disposition (ADME)
+      {q:"What are the four processes of drug disposition and their organs?", a:"Absorption (Gastrointestinal tract); Distribution (Blood and tissues); Metabolism (Liver); Excretion (Kidney)."},
+      // Drug Concentration Parameters
+      {q:"What is drug concentration (C) and its units?", a:"Amount of drug per unit volume of plasma or blood — units: mg/L, μg/mL, ng/mL. Formula: C = Amount/Volume."},
+      {q:"What is plasma drug concentration (Cp) and its clinical importance?", a:"Drug concentration measured specifically in plasma. Clinical importance: Therapeutic drug monitoring, Bioavailability studies, Dose adjustment."},
+      {q:"What is initial drug concentration (C0) and how is it obtained?", a:"Drug concentration immediately after intravenous administration; obtained by extrapolating the concentration-time curve back to time zero after IV administration."},
       {q:"What is the formula for C0?", a:"C0 = Dose / Vd."},
-      {q:"What is drug concentration at time t (Ct)?", a:"Drug concentration at any specified time after administration."},
-      {q:"What is Ct used for?", a:"Drug monitoring, pharmacokinetic modeling, elimination studies."},
-      
-      // Cmax (Page 14)
-      {q:"What is Cmax?", a:"Highest drug concentration achieved after administration."},
-      {q:"What is the clinical significance of Cmax?", a:"High Cmax may increase efficacy but also risk of adverse effects, particularly for drugs with narrow therapeutic indices."},
-      {q:"What does Cmax indicate?", a:"Peak exposure; predicts efficacy and toxicity."},
-      
-      // Tmax (Page 15)
-      {q:"What is Tmax?", a:"Time required to reach Cmax."},
-      {q:"What does Tmax indicate?", a:"Absorption rate and onset of action."},
-      {q:"How does Tmax differ between modified-release and immediate-release formulations?", a:"Modified-release formulations typically have a longer Tmax than immediate-release formulations."},
-      
-      // MEC and MTC (Page 15)
-      {q:"What is the minimum effective concentration (MEC) for desired effect?", a:"The minimum concentration of a drug that must be attained in the plasma before desirable or therapeutic effects are manifested."},
-      {q:"What is the minimum effective concentration for toxic/adverse effects?", a:"The minimum concentration of a drug in the plasma beyond which the toxic effects begin to manifest — always higher than therapeutic MEC."},
+      {q:"What is drug concentration at time t (Ct) and what is it used for?", a:"Drug concentration at any specified time after administration. Used in drug monitoring, pharmacokinetic modeling, and elimination studies."},
+      {q:"What is Cmax and its clinical significance?", a:"Highest drug concentration achieved after administration. High Cmax may increase efficacy but also the risk of adverse effects, particularly for drugs with narrow therapeutic indices. Indicates peak exposure, predicts efficacy, and predicts toxicity."},
+      {q:"What is Tmax and what does it indicate?", a:"Time required to reach Cmax. Indicates absorption rate and onset of action. Useful for formulation comparisons — modified-release formulations typically have a longer Tmax than immediate-release formulations."},
+      {q:"What is the minimum effective concentration (MEC) for therapeutic effect?", a:"The minimum concentration of a drug that must be attained in the plasma before desirable or therapeutic effects are manifested."},
+      {q:"What is the minimum effective concentration (MEC) for toxic/adverse effect?", a:"The minimum concentration of a drug in the plasma beyond which the toxic effects of the drug begin to manifest. This concentration is always higher than that for the therapeutic effects."},
       {q:"What is the therapeutic window (therapeutic index)?", a:"The range of plasma concentration of a drug that provides efficacy without unacceptable adverse (toxic) effects."},
-      
-      // Plasma Concentration-Time Curve (Page 16)
-      {q:"What does the plasma concentration-time curve show?", a:"It shows Cmax (maximum concentration), Tmax (time to reach Cmax), absorption phase, and elimination phase."},
-      
-      // AUC (Page 17)
-      {q:"What does AUC represent?", a:"Total drug exposure over time — how much drug reaches the bloodstream and how long it stays there."},
-      {q:"What does a higher AUC indicate?", a:"More drug stays in the system which can lead to toxic effects."},
-      {q:"How is AUC used to determine clearance?", a:"CL = Dose / AUC."},
-      {q:"How is AUC used in bioequivalence?", a:"AUC is used to compare drug formulations — generic's AUC must fall between 80-125% of brand-name drug's AUC."},
-      
-      // Bioavailability F (Page 18)
-      {q:"What is bioavailability (F)?", a:"Fraction of administered dose reaching systemic circulation unchanged (range 0–1 or 0–100%)."},
-      {q:"What is the bioavailability of IV administration?", a:"100%."},
+      // AUC
+      {q:"What does AUC represent?", a:"Area under the plasma concentration-time curve — represents total drug exposure. It reflects how much drug reaches the bloodstream and how long it stays there."},
+      {q:"What does a higher AUC indicate?", a:"A higher AUC means more drug stays in the system which can lead to toxic effects."},
+      {q:"How is AUC used to determine clearance?", a:"AUC is used to determine a drug's clearance: CL = Dose / AUC."},
+      {q:"How is AUC used in bioequivalence studies?", a:"If a generic drug's AUC falls between 80% to 125% of the brand-name drug's AUC, regulators consider them equal (bioequivalent)."},
+      // Bioavailability
+      {q:"What is bioavailability (F) and its range?", a:"Fraction of administered dose reaching systemic circulation unchanged. Range: 0–1 or 0–100%. IV administration has 100% bioavailability."},
       {q:"Why do oral drugs often have lower bioavailability?", a:"Due to incomplete absorption and first-pass metabolism."},
       {q:"Write the formula for bioavailability.", a:"F = (AUCoral / AUCIV) × (DoseIV / Doseoral)."},
-      
-      // Volume of Distribution Vd (Page 18)
-      {q:"What is volume of distribution (Vd)?", a:"Apparent volume in which the drug appears to be distributed."},
-      {q:"What does a low Vd indicate?", a:"Confinement to plasma; limited tissue distribution."},
-      {q:"What does a high Vd indicate?", a:"Extensive tissue distribution."},
-      {q:"What is the formula for Vd?", a:"Vd = Dose / C0."},
-      
-      // Clearance CL (Page 18)
-      {q:"What is clearance (CL)?", a:"Volume of plasma cleared of drug per unit time."},
-      {q:"What influences clearance?", a:"Renal and hepatic function."},
-      {q:"What is the formula for CL?", a:"CL = Ke × Vd."},
-      
-      // Elimination Rate Constant Ke (Page 19)
-      {q:"What is the elimination rate constant (Ke)?", a:"Fraction of drug removed per unit time."},
-      {q:"What does a higher Ke indicate?", a:"Faster drug elimination and a shorter half-life."},
-      {q:"What is the formula for Ke?", a:"Ke = 0.693 / t1/2."},
-      
-      // Half-life (Page 19-20)
-      {q:"What does half-life determine?", a:"Dosing frequency; predicts time to steady state; helps monitor toxicity; predicts time required for drug elimination."},
-      {q:"What is the half-life formula?", a:"t1/2 = 0.693 / Ke."},
+      // Volume of Distribution
+      {q:"What is Volume of Distribution (Vd) and its units?", a:"Apparent volume in which the drug appears to be distributed. Units: L or L/kg."},
+      {q:"What does low Vd indicate?", a:"Low Vd indicates confinement to plasma; drug is limited to extracellular fluid."},
+      {q:"What does high Vd indicate?", a:"High Vd suggests extensive tissue distribution; drug is concentrated in tissues rather than plasma."},
+      {q:"Write the formula for Vd.", a:"Vd = Dose / C0."},
+      // Clearance
+      {q:"What is clearance (CL) and its units?", a:"Volume of plasma cleared of drug per unit time. Units: L/hour, mL/min. A measure of the body's efficiency in eliminating a drug; influenced by renal and hepatic function."},
+      {q:"Write the formula for clearance.", a:"CL = Ke × Vd."},
+      // Elimination Rate Constant
+      {q:"What is the elimination rate constant (Ke) and its units?", a:"Fraction of drug removed per unit time. Units: hr⁻¹. A higher Ke indicates faster drug elimination and a shorter half-life."},
+      {q:"Write the formula for Ke.", a:"Ke = 0.693 / t1/2."},
+      // Half-Life
+      {q:"What is half-life (t1/2)?", a:"Time for plasma concentration to reduce by 50%."},
+      {q:"What does half-life determine clinically?", a:"Determines dosing frequency; predicts time to steady state; helps monitor toxicity; predicts the time required for drug elimination."},
+      {q:"Write the formula for t1/2.", a:"t1/2 = 0.693 / Ke."},
       {q:"After one half-life, what percentage of drug remains?", a:"50%."},
-      {q:"After two half-lives, what percentage remains?", a:"25%."},
-      {q:"After three half-lives, what percentage remains?", a:"12.5%."},
-      {q:"After four half-lives, what percentage remains?", a:"6.25%."},
+      {q:"After two half-lives, what percentage of drug remains?", a:"25%."},
+      {q:"After three half-lives, what percentage of drug remains?", a:"12.5%."},
+      {q:"After four half-lives, what percentage of drug remains?", a:"6.25%."},
       {q:"How many half-lives to reach steady state?", a:"5 half-lives."},
-      {q:"How many half-lives to eliminate a drug?", a:"5 half-lives."},
+      {q:"How many half-lives to eliminate a drug?", a:"5 half-lives (drug is >95% eliminated)."},
+      {q:"If a drug has a half-life of 12 hours, how long before it is essentially eliminated?", a:"5 × 12 = 60 hours (2.5 days)."},
       {q:"What is the relationship between Ke and t1/2?", a:"High Ke → rapid elimination → short half-life → frequent dosing. Low Ke → slow elimination → long half-life → less frequent dosing."},
-      {q:"Give examples of drugs with short half-lives.", a:"Many beta-lactam antibiotics require frequent dosing."},
-      {q:"Give examples of drugs with long half-lives.", a:"Amiodarone — dosed less frequently but takes longer to reach steady state."},
-      
-      // Therapeutic Window (Page 22)
-      {q:"What is the therapeutic window?", a:"The range of plasma concentration of a drug that provides efficacy without unacceptable adverse (toxic) effects."},
-      {q:"What happens when drug concentration is too low?", a:"Therapeutic failures occur."},
-      {q:"What happens when drug concentration is too high?", a:"Toxicity results."},
-      {q:"Why must small but frequent doses be administered for most drugs?", a:"To keep drug concentration within the therapeutic window."},
-      
-      // Summary of Symbols (Page 23)
-      {q:"What is the unit of Cp?", a:"mg/L, μg/mL."},
-      {q:"What is the unit of Cmax?", a:"mg/L."},
-      {q:"What is the unit of Cmin?", a:"mg/L."},
-      {q:"What is the unit of Vd?", a:"L or L/kg."},
-      {q:"What is the unit of CL?", a:"L/h, mL/min."},
-      {q:"What is the unit of t1/2?", a:"h, min."},
-      {q:"What is the unit of AUC?", a:"mg·h/L."},
-      {q:"What is the unit of F?", a:"fraction (0-1)."},
-      {q:"What is the unit of Ka?", a:"h⁻¹."},
-      {q:"What is the unit of Ke?", a:"h⁻¹."},
-      {q:"What is the unit of τ (tau)?", a:"h."},
-      {q:"What is the unit of Css?", a:"mg/L."},
-      
-      // Summary Table: Principal Routes (Page 56)
-      {q:"What are the enteral routes?", a:"Oral, sublingual/buccal, and rectal."},
-      {q:"What is the advantage of the oral route?", a:"Convenient, non-sterile, good absorption for most drugs."},
-      {q:"What is the disadvantage of the oral route?", a:"GI irritation, potential for interactions, first-pass destruction, inactivated by acids, variable absorption."},
-      {q:"What is the advantage of sublingual/buccal route?", a:"Avoids first-pass effect, avoids gastric acid."},
-      {q:"What is the disadvantage of sublingual/buccal route?", a:"Less dignified for the patient (referring to rectal route actually; for sublingual: inconvenient, small doses)."},
-      {q:"What is the advantage of IV route?", a:"Rapid action, complete availability."},
-      {q:"What is the disadvantage of IV route?", a:"Increased drug levels to heart, must be sterile, risk of sepsis and embolism, irreversible administration."},
-      {q:"What is the advantage of IM route?", a:"Rapid absorption."},
-      {q:"What is the disadvantage of IM route?", a:"Painful, risk of tissue damage."},
-      {q:"What is the advantage of SC route?", a:"Good for slower absorption."},
-      {q:"What is the disadvantage of SC route?", a:"Absorption variable."},
-      {q:"What is the advantage of inhalation route?", a:"Large absorption area, good for temporal use."},
-      {q:"What is the disadvantage of inhalation route?", a:"Few disadvantages."},
-      
-      // Additional Clinical PK concepts
-      {q:"What is the role of TDM in clinical practice?", a:"To individualise drug therapy by measuring plasma drug concentrations and adjusting doses to maintain therapeutic levels."},
-      {q:"Why is it important to adjust doses in renal impairment?", a:"Renal impairment decreases drug clearance, prolonging half-life and increasing risk of toxicity."},
-      {q:"Why is it important to adjust doses in liver disease?", a:"Liver disease reduces drug metabolism, affecting clearance and increasing drug exposure."},
-      {q:"What is the clinical relevance of bioequivalence studies?", a:"To ensure generic drugs are therapeutically interchangeable with brand-name drugs."},
-      {q:"What is the role of PK in antimicrobial therapy?", a:"Optimizing dosing to achieve therapeutic concentrations while minimising toxicity."},
-      {q:"What is the role of PK in oncology dosing?", a:"Supporting dose individualisation to maximize efficacy and minimise toxicity."},
-      {q:"What is the role of PK in paediatric and geriatric dosing?", a:"Guiding dose adjustments due to age-related physiological changes affecting ADME."},
-      {q:"What physicochemical properties affect drug action?", a:"pKa, lipophilicity, solubility, ionization, and protein binding."},
-      {q:"How does pKa affect drug action?", a:"pKa determines the degree of ionization, which affects lipid solubility and membrane permeability."},
-      {q:"How does lipophilicity affect drug action?", a:"Lipophilic drugs cross membranes more readily, affecting absorption and distribution."},
-      {q:"How does solubility affect drug action?", a:"Drugs must be soluble to be absorbed; low solubility limits bioavailability."},
-      {q:"How does ionization affect drug action?", a:"Ionized drugs are less lipid soluble and less able to cross membranes."},
-      {q:"How does protein binding affect drug action?", a:"Only unbound (free) drug is pharmacologically active; protein binding reduces free drug concentration."},
-      {q:"What are the main functions of biological membranes?", a:"To regulate the passage of substances, maintain cellular integrity, and facilitate drug absorption and distribution."},
-      {q:"How do membrane properties relate to drug absorption?", a:"Lipid-soluble, non-ionized drugs cross membranes more easily by passive diffusion."},
-      {q:"How do membrane properties relate to drug distribution?", a:"Drugs must cross multiple membranes to reach target tissues; membrane permeability affects distribution."},
+      {q:"Give examples of drugs with short half-lives.", a:"Many beta-lactam antibiotics often require frequent dosing."},
+      {q:"Give examples of drugs with long half-lives.", a:"Amiodarone may be dosed less frequently but takes longer to reach steady state."},
+      // Therapeutic Window Summary
+      {q:"What happens when drug concentration is too low?", a:"Therapeutic failures occur when the drug concentration is too low."},
+      {q:"What happens when drug concentration is too high?", a:"Toxicity results when the concentration is too high."},
+      // Physicochemical Properties (from Learning Outcomes)
+      {q:"List the physicochemical properties affecting drug action.", a:"pKa (ionization), lipophilicity, solubility, ionization, and protein binding."},
+      {q:"What is the importance of pKa in drug action?", a:"pKa determines the degree of ionization of a drug at physiological pH, which affects its solubility, membrane permeability, and absorption."},
+      {q:"What is lipophilicity and why is it important?", a:"Lipophilicity is the affinity of a drug for lipids/fatty tissues. It determines membrane permeability, absorption, distribution, and ability to cross the blood-brain barrier."},
+      {q:"What is drug solubility and why is it important?", a:"Solubility is the ability of a drug to dissolve in a solvent. It affects absorption, bioavailability, and formulation. Poorly soluble drugs often have poor bioavailability."},
+      {q:"What is protein binding and its clinical significance?", a:"The reversible binding of drugs to plasma proteins (mainly albumin). Only unbound (free) drug is pharmacologically active and can be eliminated. Changes in protein binding affect drug distribution and clearance."},
+      // Membrane Properties
+      {q:"What is the structure and function of biological membranes?", a:"Biological membranes are lipid bilayers with embedded proteins. They are selectively permeable barriers that control the passage of drugs and other molecules. Drug absorption requires crossing these membranes."},
+      {q:"How do membrane properties relate to drug absorption?", a:"Lipid-soluble (lipophilic) drugs cross membranes more easily by passive diffusion. Water-soluble drugs may require carrier-mediated transport or need to be formulated for better absorption."},
+      {q:"What factors affect drug absorption across membranes?", a:"Membrane thickness, surface area, blood flow to the site, drug lipophilicity, degree of ionization (pKa), and presence of transport proteins."},
+      // Summary Table Symbols
+      {q:"What is Cmin (trough concentration)?", a:"Minimum observed concentration of drug in blood plasma at steady state (just before next dose)."},
+      {q:"What is the symbol for dosing interval?", a:"τ (tau)."},
+      {q:"What is MRT (Mean Residence Time)?", a:"Average time for drug molecules to reside in the body. MRT = AUMC / AUC."},
+      {q:"What is MAT (Mean Absorption Time)?", a:"MAT = MRTev − MRTiv; represents the extra time added by the extravascular absorption process."},
     ],
     mcq:[
-      // Learning outcomes
+      // PK Definition & Clinical PK
+      {q:"Pharmacokinetics involves the study of:", opts:["Drug-receptor interactions","ADME of drugs","Drug toxicity only","Drug formulation"], correct:1},
       {q:"Pharmacodynamics is best described as:", opts:["What the body does to the drug","What the drug does to the body","The rate of drug absorption","The volume of distribution"], correct:1},
       {q:"Clinical pharmacokinetics involves:", opts:["Only drug development","Application of PK principles in patient management","Only bioequivalence studies","Only drug metabolism"], correct:1},
-      {q:"The therapeutic window is the range between:", opts:["Cmax and Tmax","MEC and MTC","AUC and CL","Vd and t1/2"], correct:1},
-      {q:"Which physicochemical property affects drug action?", opts:["pKa only","Lipophilicity only","Solubility, ionization, and protein binding","Only molecular weight"], correct:2},
-      
-      // ADME organs
+      {q:"Therapeutic Drug Monitoring (TDM) is used to:", opts:["Increase drug dose","Individualize drug therapy","Reduce drug cost","Speed up drug approval"], correct:1},
+      // Drug Disposition
       {q:"The primary organ for drug metabolism is:", opts:["Kidney","Liver","Heart","Lung"], correct:1},
       {q:"The primary organ for drug excretion is:", opts:["Liver","Kidney","Blood","Tissues"], correct:1},
-      
-      // Drug concentration
+      // Drug Concentration Parameters
       {q:"Drug concentration is defined as:", opts:["Amount of drug per unit volume of plasma","Total dose given","Volume of distribution","Clearance rate"], correct:0},
       {q:"C0 (initial concentration) is obtained by:", opts:["Direct measurement at 1 hour","Extrapolating concentration-time curve to time zero","Calculating from AUC","Measuring at Cmax"], correct:1},
       {q:"A high Cmax for a drug with a narrow therapeutic index indicates:", opts:["Increased safety","Increased risk of toxicity","No clinical significance","Faster elimination"], correct:1},
       {q:"Modified-release formulations typically have:", opts:["Shorter Tmax than immediate-release","Longer Tmax than immediate-release","Same Tmax as immediate-release","No Tmax"], correct:1},
-      
-      // Routes
-      {q:"The oral route's main disadvantage is:", opts:["It is always painful","First-pass metabolism and variable absorption","Requires sterile preparation","Cannot be used for unconscious patients only"], correct:1},
-      {q:"The sublingual route avoids first-pass metabolism because:", opts:["It is injected directly into blood","Blood from buccal cavity empties directly into systemic circulation","It is absorbed in the stomach","It is metabolised in the kidney"], correct:1},
-      {q:"The inhalation route bypasses first-pass metabolism because:", opts:["Drugs are injected directly","Drugs are absorbed through alveoli directly into systemic circulation","Drugs are metabolised in the lungs","Drugs are excreted rapidly"], correct:1},
-      {q:"Parenteral routes require:", opts:["Non-sterile preparations","Sterile preparations","Enteral feeding","Special food"], correct:1},
-      {q:"The IV route has which advantage over other routes?", opts:["Slower absorption","Complete bioavailability (100%)","Less expensive","No need for trained personnel"], correct:1},
-      {q:"Repository preparations given subcutaneously are used to:", opts:["Achieve rapid onset","Spread action over hours/days","Avoid any systemic effect","Reduce cost"], correct:1},
-      
-      // Symbols and parameters
-      {q:"Total body clearance is the sum of:", opts:["CLR + CLH","CLR × CLH","CLR - CLH","CLR / CLH"], correct:0},
-      {q:"The maintenance dose formula is:", opts:["MD = Ctarget × CL × τ","MD = Ctarget / Vd","MD = Vd × Ke","MD = CL / Cmax"], correct:0},
-      {q:"MRTiv in a one-compartment model equals:", opts:["1/Ke","Ke","t1/2","AUC"], correct:0},
-      
-      // TDM and clinical applications
-      {q:"Therapeutic Drug Monitoring (TDM) is used to:", opts:["Increase drug dose arbitrarily","Individualise drug therapy based on plasma concentrations","Replace clinical examination","Reduce drug costs"], correct:1},
-      {q:"In renal impairment, dose adjustment is necessary because:", opts:["Drug absorption increases","Drug clearance decreases","Drug metabolism increases","Vd always decreases"], correct:1},
-      {q:"Bioequivalence studies are primarily used for:", opts:["Brand-name drug development","Generic drug approval","Paediatric dosing","Oncology dosing"], correct:1},
-      {q:"Lipophilic drugs tend to have:", opts:["Poor membrane permeability","Good membrane permeability","Low oral bioavailability","High water solubility"], correct:1},
-      {q:"Protein binding affects drug action because:", opts:["Only free (unbound) drug is pharmacologically active","Bound drug is more active","Protein binding increases Vd","Protein binding increases clearance"], correct:0},
-      
-      // Half-life and steady state
-      {q:"After 4 half-lives, what percentage of drug remains?", opts:["50%","25%","12.5%","6.25%"], correct:3},
-      {q:"It takes approximately how many half-lives to reach steady state?", opts:["2","3","5","7"], correct:2},
-      {q:"A drug with a long half-life:", opts:["Requires frequent dosing","Reaches steady state slowly","Is eliminated rapidly","Has a high Ke"], correct:1},
-      
-      // Therapeutic window
-      {q:"Therapeutic failures occur when drug concentration is:", opts:["Above MTC","Below MEC","Within the therapeutic window","At Cmax"], correct:1},
-      {q:"Toxicity occurs when drug concentration is:", opts:["Below MEC","Above MTC","Within the therapeutic window","At Tmax"], correct:1},
-      
-      // AUC and CL
-      {q:"The relationship between AUC and CL is:", opts:["AUC = CL / Dose","AUC = Dose / CL","AUC = Dose × CL","AUC = CL × t1/2"], correct:1},
-      
+      // Therapeutic Window
+      {q:"The therapeutic window is the range between:", opts:["Cmax and Tmax","MEC and MTC","AUC and CL","Vd and t1/2"], correct:1},
+      {q:"The minimum effective concentration (MEC) for toxic effect is:", opts:["Lower than therapeutic MEC","Higher than therapeutic MEC","Equal to therapeutic MEC","Unrelated to therapeutic MEC"], correct:1},
+      // AUC
+      {q:"AUC represents:", opts:["Rate of drug absorption","Total drug exposure over time","Peak drug concentration","Time to peak concentration"], correct:1},
+      {q:"In bioequivalence studies, generic AUC must fall between:", opts:["70-130%","80-125%","90-110%","95-105%"], correct:1},
       // Bioavailability
-      {q:"A drug with F = 0.75 means:", opts:["75% of dose reaches systemic circulation","25% of dose reaches systemic circulation","50% of dose reaches systemic circulation","100% of dose reaches systemic circulation"], correct:0},
-      
-      // pKa, ionization
-      {q:"A drug with a pKa close to physiological pH will have:", opts:["Only ionized form present","Only unionized form present","Both ionized and unionized forms present","No effect on absorption"], correct:2},
+      {q:"IV administration has a bioavailability of:", opts:["50%","75%","90%","100%"], correct:3},
+      {q:"Oral drugs often have lower bioavailability due to:", opts:["Incomplete absorption and first-pass metabolism","Higher cost","Faster elimination","Larger volume of distribution"], correct:0},
+      // Vd
+      {q:"A low Vd indicates:", opts:["Extensive tissue distribution","Drug confined to plasma or extracellular fluid","Rapid drug elimination","Slow drug absorption"], correct:1},
+      {q:"A high Vd suggests:", opts:["Drug is confined to plasma","Extensive tissue distribution","Rapid elimination","Poor absorption"], correct:1},
+      // Clearance & Ke
+      {q:"Clearance is calculated as:", opts:["CL = Vd × t1/2","CL = Ke × Vd","CL = Dose / Cmax","CL = AUC / Dose"], correct:1},
+      {q:"A high Ke indicates:", opts:["Rapid elimination and short half-life","Slow elimination and long half-life","No elimination","Increased distribution"], correct:0},
+      // Half-Life
+      {q:"After 3 half-lives, what percentage of drug remains?", opts:["25%","12.5%","6.25%","50%"], correct:1},
+      {q:"After 4 half-lives, what percentage of drug remains?", opts:["25%","12.5%","6.25%","50%"], correct:2},
+      {q:"How many half-lives does it take to reach steady state?", opts:["2","3","4","5"], correct:3},
+      {q:"How many half-lives does it take to eliminate a drug?", opts:["2","3","4","5"], correct:3},
+      {q:"A drug with a short half-life typically requires:", opts:["Less frequent dosing","More frequent dosing","Once daily dosing","No dosing"], correct:1},
+      // Physicochemical Properties
+      {q:"Which physicochemical property affects drug action?", opts:["pKa only","Lipophilicity only","Solubility, ionization, protein binding, and pKa","Only molecular weight"], correct:2},
+      {q:"pKa determines:", opts:["Drug color","Degree of ionization at physiological pH","Drug price","Drug half-life"], correct:1},
+      {q:"Lipophilic drugs typically have:", opts:["Poor membrane permeability","Good membrane permeability by passive diffusion","Low absorption","High water solubility"], correct:1},
+      // Membranes
+      {q:"Biological membranes are primarily composed of:", opts:["Protein only","Lipid bilayer with embedded proteins","Carbohydrates only","Nucleic acids"], correct:1},
+      {q:"Lipid-soluble drugs cross membranes mainly by:", opts:["Active transport","Passive diffusion","Endocytosis","Filtration"], correct:1},
+      // Summary
+      {q:"The symbol τ (tau) represents:", opts:["Time to reach Cmax","Dosing interval","Absorption rate constant","Elimination half-life"], correct:1},
+      {q:"MRT (Mean Residence Time) is calculated as:", opts:["AUC/AUMC","AUMC/AUC","Dose/AUC","Cmax/AUC"], correct:1},
     ]
   }
 ];
@@ -997,7 +861,7 @@ function saveState(){
 
 let state = loadState();
 let route = state.name ? {screen:'home'} : {screen:'gate'};
-let activeQuiz = null; // {sectionId, mode, idx}
+let activeQuiz = null;
 let cardFlipLocal = false;
 
 function ensureProgress(sectionId){
@@ -1054,7 +918,7 @@ function renderGate(){
   el.innerHTML = `
     <div class="gate-eyebrow">Clinical Pharmacokinetics · PCL 423</div>
     <h1>Be <em>completely</em><br/>ready for it.</h1>
-    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, routes, non-linear kinetics, pharmacogenetics, bioequivalence, clinical applications — fully comprehensive.</p>
+    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, routes, non-linear kinetics, pharmacogenetics, bioequivalence, clinical PK fundamentals — fully comprehensive.</p>
     <form class="name-form" id="nameForm" autocomplete="off">
       <input type="text" id="nameInput" placeholder="Enter your name to begin" required maxlength="40"/>
       <button type="submit" class="btn btn-primary">Start studying →</button>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kinetics — PCL 423 Clinical Pharmacokinetics</title>
+<title>Kinetics — PCL 423 Clinical Pharmacokinetics (Complete)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,480;0,9..144,560;0,9..144,650;1,9..144,480&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -51,7 +51,6 @@
   a{color:inherit;}
   svg{display:block;}
 
-  /* ---------- ambient background layers ---------- */
   .bg-curve{position:fixed; inset:0; z-index:0; pointer-events:none;}
   .bg-grid{
     position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -76,7 +75,6 @@
   .app{position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:32px 20px 64px;}
   .wrap{width:100%; max-width:780px;}
 
-  /* ---------- top bar ---------- */
   .topbar{
     display:flex; justify-content:space-between; align-items:center;
     width:100%; max-width:780px; margin-bottom:30px;
@@ -99,7 +97,6 @@
   .user-chip .dot-ico{width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px 1px var(--cyan);}
   .user-chip strong{color:var(--text-0); font-weight:600;}
 
-  /* ---------- gate ---------- */
   .gate{
     display:flex; flex-direction:column; align-items:center; text-align:center;
     min-height:82vh; justify-content:center; width:100%; max-width:560px; margin:0 auto;
@@ -151,7 +148,6 @@
 
   @keyframes fadeSlideUp{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
 
-  /* ---------- home ---------- */
   .home-head{margin-bottom:30px; animation:fadeSlideUp .6s cubic-bezier(.22,.61,.36,1) .05s both;}
   .home-head .eyebrow{font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--cyan); margin-bottom:10px;}
   .home-head h1{font-size:1.95rem; font-weight:560; letter-spacing:-0.015em; margin-bottom:9px;}
@@ -200,7 +196,6 @@
   .badge-progress{background:var(--gold); color:#0B1220;}
   .badge-new{background:rgba(11,18,32,0.08); color:#5b6670;}
 
-  /* ---------- quiz shell ---------- */
   .back-row{margin-bottom:20px; animation:fadeSlideUp .5s cubic-bezier(.22,.61,.36,1) both;}
   .quiz-topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; width:100%;
     animation:fadeSlideUp .5s cubic-bezier(.22,.61,.36,1) .05s both;}
@@ -232,7 +227,6 @@
   .qkicker{font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--cyan-dim); font-weight:600; margin-bottom:16px;}
   .qtext{font-family:'Fraunces',serif; font-size:1.4rem; line-height:1.42; font-weight:500; flex:1;}
 
-  /* ---------- flashcard flip ---------- */
   .flip-scene{perspective:1800px; margin-top:4px; flex:1; display:flex; cursor:pointer; min-height:190px;}
   .flip-card{
     width:100%; position:relative; transform-style:preserve-3d;
@@ -252,7 +246,6 @@
   @keyframes floatPulse{ 0%,100%{opacity:0.22; transform:translateY(0) rotate(0deg);} 50%{opacity:0.5; transform:translateY(-2px) rotate(24deg);} }
   .flip-scene:active .flip-card:not(.flipped){transform:scale(.985);}
 
-  /* ---------- mcq ---------- */
   .mcq-opts{display:flex; flex-direction:column; gap:10px; margin-top:24px;}
   .opt{
     text-align:left; padding:14px 16px; border-radius:11px; border:1.5px solid #d8d2c1;
@@ -282,7 +275,6 @@
   .feedback.wrong{background:rgba(255,107,82,0.1); border:1px solid rgba(255,107,82,0.3); color:#a0402a;}
   .feedback b{font-weight:700;}
 
-  /* ---------- quiz nav ---------- */
   .quiz-nav{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:24px;
     animation:fadeSlideUp .5s cubic-bezier(.22,.61,.36,1) .15s both;}
   .nav-btn{
@@ -297,7 +289,6 @@
   .nav-next{background:linear-gradient(135deg, var(--gold), var(--gold-dim)); color:var(--bg-0);}
   .nav-next:hover:not(:disabled){box-shadow:0 10px 26px -8px rgba(227,178,77,0.5);}
 
-  /* ---------- results ---------- */
   .results-card{background:var(--paper); color:var(--ink); border-radius:20px; padding:48px 34px; text-align:center;
     box-shadow:0 24px 60px -22px rgba(0,0,0,0.6); animation:fadeSlideUp .5s cubic-bezier(.22,.61,.36,1) both;}
   .results-eyebrow{font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--cyan-dim); margin-bottom:22px;}
@@ -349,31 +340,39 @@
 
 <script>
 /* ============================================================
-   DATA — PCL 423: Rates & Orders of Reaction / Clinical PK
+   DATA — PCL 423: FULLY COMPREHENSIVE — COVERS EVERY SLIDE
+   Sections: Kinetics, Models, Dosing, Routes, Non-Linear & Disease,
+   Pharmacogenetics, BA/BE, Symbols & Parameters, Non-Compartmental
    ============================================================ */
 const SECTIONS = [
+  // ========= SECTION 1: RATES & ORDERS OF REACTION =========
   {
     id:'kinetics',
     color:'#3FD1D9',
     num:'01',
     title:'Rates & Orders of Reaction',
-    desc:'Zero, first & second order kinetics, rate constants, half-life, and complex reaction schemes.',
+    desc:'Zero, first, second order kinetics, rate constants, half-life, t10%, complex reactions (opposing, consecutive, parallel), and determination methods.',
     short:[
-      {q:"What is pharmacokinetics, in one sentence?", a:"The mathematical study of the rate at which drug reactions (ADME) occur in the body."},
-      {q:"Define 'order of reaction'.", a:"The number of concentration terms that determine the rate of a reaction (or how concentration influences the rate)."},
+      {q:"What is pharmacokinetics?", a:"The study of the rate at which drug reactions (absorption, distribution, metabolism, excretion) occur; a mathematical way to understand ADME."},
+      {q:"Define 'order of reaction'.", a:"The number of concentration terms that determine the rate of a reaction (how concentration influences the rate)."},
       {q:"What does the rate constant K depend on, and what is it independent of?", a:"K is independent of concentration, but depends on factors like temperature."},
       {q:"Write the integrated equation for a zero order reaction.", a:"Ct = C0 − Kt (a plot of concentration vs time is a straight line, slope = −K)."},
       {q:"What is the unit of K for a zero order reaction?", a:"Concentration·time⁻¹, e.g. mol L⁻¹ s⁻¹."},
       {q:"Give the half-life equation for a zero order reaction.", a:"t1/2 = C0 / 2K."},
-      {q:"Name one pharmaceutical example of a zero order process.", a:"Drug release from IV infusion or a transdermal delivery system (TDDS); also solubility-limited degradation in suspensions."},
+      {q:"Name pharmaceutical examples of zero order processes.", a:"Conversion of Vitamin A acetate to anhydrous vitamin A; photolysis of cefotaxime; loss of colour in multi-sulfa product; release from IV infusion and TDDS."},
       {q:"Give the half-life equation for a first order reaction.", a:"t1/2 = 0.693 / K."},
-      {q:"Name one pharmacokinetic process that follows first order kinetics.", a:"Drug absorption, distribution, and elimination generally follow first order kinetics."},
+      {q:"Name pharmacokinetic processes that follow first order kinetics.", a:"Absorption, distribution, and elimination rates; microbial death kinetics."},
+      {q:"What is the unit of K for a first order reaction?", a:"time⁻¹, e.g. s⁻¹."},
       {q:"What is the unit of K for a second order reaction?", a:"Concentration⁻¹·time⁻¹, e.g. mol⁻¹ s⁻¹."},
-      {q:"What is a pseudo-first order reaction? Give an example.", a:"A second order reaction that behaves like first order because one reactant is present in great excess (e.g. aspirin hydrolysis, ascorbic acid tablet decomposition)."},
-      {q:"On the data-plotting method, which plot is linear for a first order reaction?", a:"A plot of log (a−x), or ln C, against time is linear for a first order reaction."},
-      {q:"List the methods used to determine the order of a reaction.", a:"Substitution method, data plotting method, initial rate method, and half-life determination method."},
-      {q:"According to the half-life determination method, how does t1/2 relate to initial concentration 'a' and reaction order n?", a:"t1/2 is proportional to 1/a^(n−1)."},
-      {q:"What is t10%, and how does it relate to t1/2 for a first order reaction?", a:"t10% = 0.104/K, which equals approximately 0.152 × t1/2."},
+      {q:"Define pseudo-first order reaction and give examples.", a:"A second order reaction that behaves like first order because one reactant is present in great excess or maintained at constant concentration. Examples: decomposition of ascorbic acid tablet; aspirin hydrolysis."},
+      {q:"Define pseudo-zero order reaction with example.", a:"A reaction that follows zero order kinetics due to a reservoir maintaining constant concentration, e.g. degradation of a drug in suspension where excess solid drug maintains constant solution concentration."},
+      {q:"What is a suspension's degradation kinetics? Why?", a:"Suspended drugs degrade by zero order kinetics because as drug decomposes in solution, more drug dissolves from the suspended particles, maintaining constant concentration until all particles are gone."},
+      {q:"What are complex reactions? Name the three types.", a:"Complex reactions include: (1) opposing/reversible reactions (e.g. epimerization of tetracycline), (2) consecutive reactions (A→B→C, e.g. chlorbenzodiazepine degradation), and (3) parallel reactions (e.g. insulin degrading by deamidation and polymerization simultaneously)."},
+      {q:"What is the half-life determination method for finding reaction order?", a:"Using t1/2 ∝ 1/a^(n−1), where n is the order. By running two reactions at different initial concentrations and measuring half-lives, order can be calculated."},
+      {q:"On the data-plotting method, which plot is linear for each reaction order?", a:"Zero order: [C] vs t. First order: ln C vs t. Second order: 1/C vs t."},
+      {q:"What is the initial rate method for determining order?", a:"Plot rate of reaction vs concentration. If straight line → first order. If curve → second order. If independent of concentration → zero order."},
+      {q:"What is t10% and how does it relate to t1/2?", a:"t10% is the time for 10% of drug to degrade (reasonable degradation limit). For first order: t10% = 0.104/K = 0.152 × t1/2."},
+      {q:"What is the substitution method for determining reaction order?", a:"Data is substituted into integrated rate equations for various orders. The order that gives a constant K value is the reaction order."},
     ],
     mcq:[
       {q:"A reaction whose rate is independent of the concentration of reactant is:", opts:["Zero order","First order","Second order","Pseudo-first order"], correct:0},
@@ -381,21 +380,25 @@ const SECTIONS = [
       {q:"The SI unit of K for a first order reaction is:", opts:["mol L⁻¹ s⁻¹","s⁻¹","mol⁻¹ s⁻¹","L mol⁻¹"], correct:1},
       {q:"Degradation of a drug reservoir in a suspension (with excess solid drug) follows:", opts:["First order kinetics","Second order kinetics","Pseudo-zero order kinetics","Third order kinetics"], correct:2},
       {q:"For a first order reaction, plotting log(a−x) vs time gives a straight line whose slope is:", opts:["+K", "−K/2.303","+K/2.303","−K"], correct:1},
-      {q:"Which of these is NOT a recognised method for determining reaction order?", opts:["Substitution method","Data plotting method","Initial rate method","Titration endpoint method"], correct:3},
+      {q:"Which is NOT a recognised method for determining reaction order?", opts:["Substitution method","Data plotting method","Initial rate method","Titration endpoint method"], correct:3},
       {q:"Epimerization of tetracycline (A ⇌ B) is a classic example of a/an:", opts:["Consecutive reaction","Opposing (reversible) reaction","Parallel reaction","Zero order reaction"], correct:1},
       {q:"Degradation of chlorbenzodiazepine to a lactam and then to benzophenone (A→B→C) is an example of a/an:", opts:["Opposing reaction","Parallel reaction","Consecutive reaction","Pseudo-first order reaction"], correct:2},
       {q:"Purified insulin degrading simultaneously by deamidation and polymerization is an example of a/an:", opts:["Consecutive reaction","Parallel reaction","Opposing reaction","Zero order reaction"], correct:1},
       {q:"For a second order reaction where a=b, plotting 1/(a−x) vs time gives a straight line with slope equal to:", opts:["K","−K","2K","K/2.303"], correct:0},
       {q:"In the initial rate method, a straight-line graph of rate vs concentration indicates:", opts:["Zero order","First order","Second order","Third order"], correct:1},
       {q:"Photolysis of cefotaxime is a pharmaceutical example of a:", opts:["Zero order reaction","First order reaction","Second order reaction","Consecutive reaction"], correct:0},
+      {q:"The half-life for a zero-order reaction depends on:", opts:["Initial concentration","Rate constant only","Temperature only","It is always constant"], correct:0},
+      {q:"In a consecutive reaction A→B→C where KBC > KAB, the rate-determining step is:", opts:["A→B","B→C","Both equally","Neither"], correct:0},
+      {q:"The half-life determination method formula for calculating reaction order is:", opts:["n = log(t1/2(1)/t1/2(2))/log(a2/a1) + 1","n = log(t1/2(1)/t1/2(2)) / log(a1/a2)","n = t1/2(1)/t1/2(2) × a2/a1","n = a1/a2 × t1/2(2)/t1/2(1)"], correct:0},
     ]
   },
+  // ========= SECTION 2: PHARMACOKINETIC MODELS =========
   {
     id:'models',
     color:'#E3B24D',
     num:'02',
     title:'Pharmacokinetic Compartment Models',
-    desc:'One, two and three-compartment open models, apparent volume of distribution, and the biphasic/triphasic curves.',
+    desc:'One, two and three-compartment open models; apparent volume of distribution (Vd, Vp, Vt, Vdss, Vdβ); biphasic/triphasic curves; rate constants α and β.',
     short:[
       {q:"What is a pharmacokinetic model?", a:"A mathematical description of a biological system, expressing quantitative relationships for the time course of a drug in the body."},
       {q:"List the three types of pharmacokinetic models.", a:"Compartment model, non-compartment model, and physiological model."},
@@ -407,9 +410,16 @@ const SECTIONS = [
       {q:"In the two-compartment model, what do alpha (α) and beta (β) represent?", a:"α is the rate constant for the distribution phase; β is the rate constant for the elimination phase."},
       {q:"Give the equation for Vdss in terms of Vp, K12 and K21.", a:"Vdss = Vp (1 + K12/K21)."},
       {q:"Which volume of distribution is described as 'the true distribution change in the body, unaffected by elimination'?", a:"Vdss (apparent volume of distribution at steady state)."},
-      {q:"What is the 'flip-flop' model?", a:"When the elimination rate constant is much greater than the absorption rate constant during extravascular dosing."},
+      {q:"What is the 'flip-flop' model?", a:"When the elimination rate constant is much greater than the absorption rate constant during extravascular dosing (Ke >> Ka)."},
       {q:"How many exponential terms are needed to describe the concentration-time curve of a three-compartment model?", a:"Three (a triexponential equation: Cp = Ae^(−αt) + Be^(−βt) + Ce^(−γt))."},
-      {q:"Name two organs/tissues typically found in the central compartment.", a:"Blood, heart, brain, kidney, liver, extracellular fluid (highly perfused tissues)."},
+      {q:"Name organs/tissues found in the central compartment (highly perfused).", a:"Blood, heart, brain, kidney, liver, extracellular fluid, endocrine glands, hepatic portal system."},
+      {q:"Name organs/tissues found in the tissue/peripheral compartment (poorly perfused).", a:"Bones, cartilage, ligaments, teeth, tendons, hair, adipose tissue, bone marrow, muscles."},
+      {q:"What is the apparent volume of distribution (Vd) calculation for a one-compartment IV bolus?", a:"Vd = Dose / C0 (where C0 is the initial concentration at time zero)."},
+      {q:"How is Vp (central compartment volume) calculated in a two-compartment model?", a:"Vp = Dose / (A + B), where A and B are the intercepts of the biexponential curve at t=0."},
+      {q:"What is Vd area (Vdβ) and how is it calculated?", a:"Vdβ = Clearance / β = (Dose/AUC) / β, often quoted for dose calculations."},
+      {q:"Why is understanding Vd in two-compartment models clinically important?", a:"If target organ is in central compartment (e.g. lidocaine), Cp can be much higher than expected, causing toxicity. For drugs like digoxin (target in tissue compartment), high Cp may not cause toxicity."},
+      {q:"What is the AUC equation for a two-compartment model?", a:"AUC = D / (K × Vp), where D is dose, K is elimination rate, and Vp is central volume."},
+      {q:"How is the distribution rate constant (α) determined from a concentration-time graph?", a:"Using the residual/feathering/peeling method — subtracting the extrapolated elimination line from the initial curve."},
     ],
     mcq:[
       {q:"The apparent volume of distribution (Vd) is best described as:", opts:["A true anatomical volume","A hypothetical volume, not a real physiological space","Always equal to plasma volume","Always equal to total body water"], correct:1},
@@ -419,64 +429,88 @@ const SECTIONS = [
       {q:"The concentration-time profile of a three-compartment model is described as:", opts:["Monophasic","Biphasic","Triphasic","Linear"], correct:2},
       {q:"Insulin given intravenously is best described by a:", opts:["One-compartment model","Two-compartment model","Three-compartment model","Zero-compartment model"], correct:2},
       {q:"In the two-compartment model, the relationship between alpha and beta is typically:", opts:["α ≈ β","α >>> β","β >>> α","α = 0"], correct:1},
-      {q:"Vdβ (apparent Vd by area) is calculated as:", opts:["KVp/β","Vp + Vt","D/AUC","Cp × Vd"], correct:0},
+      {q:"Vdβ (apparent Vd by area) is calculated as:", opts:["D/(β × AUC)","Vp + Vt","D/AUC","Cp × Vd"], correct:0},
       {q:"Drugs like lidocaine, whose target organ is in the central compartment, risk toxicity because:", opts:["Cp is initially lower than expected","Cp is initially much higher than expected after IV bolus","Vd is always very large","They follow zero order kinetics"], correct:1},
-      {q:"Which of the following is NOT one of the three types of pharmacokinetic models?", opts:["Compartment model","Non-compartment model","Physiological model","Enzymatic model"], correct:3},
+      {q:"Which is NOT one of the three types of pharmacokinetic models?", opts:["Compartment model","Non-compartment model","Physiological model","Enzymatic model"], correct:3},
+      {q:"In the two-compartment model, the terminal slope (beta phase) is primarily used to calculate:", opts:["Distribution rate constant","Elimination half-life","Absorption rate","Vdss"], correct:1},
+      {q:"The half-life in a two-compartment model is determined from:", opts:["The initial distribution phase","The terminal elimination (beta) phase","The midpoint of the curve","The peak concentration only"], correct:1},
+      {q:"Vdss is calculated as Vp (1 + K12/K21). This represents:", opts:["Volume of central compartment only","True distribution volume unaffected by elimination","Volume of tissue compartment only","Total body water"], correct:1},
+      {q:"Which statement about the central compartment is TRUE?", opts:["Contains poorly perfused tissues","Drug equilibrates slowly here","Contains highly perfused organs like heart and brain","It is the same as the tissue compartment"], correct:2},
+      {q:"For a drug that distributes extensively into tissues, the Vd will be:", opts:["Low","High","Equal to plasma volume","Zero"], correct:1},
     ]
   },
+  // ========= SECTION 3: DOSE ADMINISTRATION & NON-COMPARTMENTAL =========
   {
     id:'dosing',
     color:'#4FD189',
     num:'03',
     title:'Dose Administration & Non-Compartmental Analysis',
-    desc:'IV bolus, continuous infusion, extravascular dosing, loading doses, multiple dosing, and AUC-based parameters.',
+    desc:'IV bolus, continuous infusion, extravascular dosing, loading doses, multiple dosing, AUC-based parameters, MRT, MAT, clearance, and model-independent methods.',
     short:[
       {q:"What assumption does IV bolus dosing make about the rate of absorption?", a:"The entire dose enters the body instantaneously, so absorption rate is assumed negligible."},
       {q:"Write the log-linear equation for plasma concentration decline after an IV bolus (one-compartment model).", a:"Log C = Log C0 − Ket/2.303."},
       {q:"What is Css in the context of a continuous IV infusion?", a:"The steady-state (plateau) plasma concentration reached during constant-rate infusion."},
-      {q:"Give the formula for Css during IV infusion.", a:"Css = R0 / (Ke·Vd)."},
+      {q:"Give the formula for Css during IV infusion.", a:"Css = R0 / (Ke·Vd) = R0 / CL."},
       {q:"Why is a loading dose given?", a:"To achieve the steady-state concentration rapidly, rather than waiting several half-lives for it to accumulate."},
       {q:"Give a formula for calculating a loading dose (DL).", a:"DL = Css × Vd, or equivalently DL = R0/Ke."},
+      {q:"How many half-lives does it take to reach 90%, 95%, and 99% of Css without a loading dose?", a:"90% → 3.32 half-lives; 95% → 4.32 half-lives; 99% → 6.65 half-lives."},
       {q:"What two kinetic processes characterize typical extravascular (e.g. oral) dosing?", a:"First-order absorption AND first-order elimination."},
-      {q:"In normal (non flip-flop) extravascular dosing, how does the absorption rate constant (Ka) compare to elimination rate constant (K)?", a:"Ka is much greater than K (Ka >> K)."},
+      {q:"In normal (non flip-flop) extravascular dosing, how does Ka compare to Ke?", a:"Ka is much greater than Ke (Ka >> Ke)."},
       {q:"What is the 'residual' (feathering/peeling) method used for?", a:"To determine the absorption rate constant (Ka) from the absorption phase of an oral concentration-time plot, by subtracting the extrapolated elimination line."},
       {q:"After how many half-lives of dosing at the half-life interval does concentration typically reach steady state with multiple dosing?", a:"After about 7–8 doses/half-lives."},
       {q:"Give the formula for average steady-state concentration during multiple dosing.", a:"C∞Av = FD0 / (k·VD·τ)."},
       {q:"What does MRT (mean residence time) represent, and how is it calculated?", a:"The average time a drug molecule resides in the body; MRT = AUMC/AUC."},
       {q:"What is mean absorption time (MAT)?", a:"MAT = MRTev − MRTiv, the extra time added by the extravascular absorption process."},
+      {q:"What is non-compartmental (model-independent) analysis?", a:"A method that describes pharmacokinetics using time and concentration parameters without assuming a compartment model, based on statistical moments theory."},
+      {q:"How is total clearance calculated non-compartmentally?", a:"Cl = FD0 / AUC(0−∞)."},
+      {q:"What is the formula for MRTiv in a one-compartment model?", a:"MRTiv = 1/Ke."},
+      {q:"In non-compartmental analysis, what is the relationship between MRTev and MRTiv?", a:"MRTev = MRTiv + MAT (mean absorption time)."},
+      {q:"What is the equation for plasma concentration during IV infusion?", a:"C = (R0/(Ke·Vd)) × (1 − e^(−Ke·t))."},
+      {q:"What happens when IV infusion is discontinued?", a:"Plasma drug concentration declines by a first-order process."},
     ],
     mcq:[
       {q:"IV infusion combined with first-order elimination is a classic example of:", opts:["Zero order absorption, first order elimination","First order absorption, zero order elimination","Zero order elimination only","First order absorption and elimination"], correct:0},
       {q:"If an IV infusion is stopped, plasma concentration then declines by a:", opts:["Zero order process","First order process","Second order process","It stays constant"], correct:1},
       {q:"Under steady-state conditions during continuous infusion, the fraction of drug absorbed equals the fraction:", opts:["Bound to protein","Eliminated from the body","Distributed to tissue","Remaining in the syringe"], correct:1},
       {q:"Without a loading dose, reaching 90% of Css takes approximately how many half-lives?", opts:["1.0","2.0","3.32","6.65"], correct:2},
-      {q:"Which parameter chiefly reflects the RATE of drug absorption after oral dosing?", opts:["AUC","Tmax","Clearance","Vd"], correct:1},
+      {q:"Which parameter chiefly reflects the RATE of absorption after oral dosing?", opts:["AUC","Tmax","Clearance","Vd"], correct:1},
       {q:"The area under the curve (AUC 0→∞) after a single extravascular dose is given by:", opts:["FD0/(VDk)","Css × Vd","KeVd","D/A+B"], correct:0},
       {q:"Non-compartmental (model-independent) clearance is calculated as:", opts:["Cl = Ke × Vd only","Cl = FD0/AUC(0–∞)","Cl = Cmax/Tmax","Cl = Vd/t1/2"], correct:1},
       {q:"Mean Residence Time (MRT) is calculated as:", opts:["AUC/AUMC","AUMC/AUC","Dose/AUC","Cmax/AUC"], correct:1},
       {q:"'Non-compartmental analysis' is also known as the:", opts:["Model-dependent method","Model-independent method","Compartmental method","Physiological method"], correct:1},
       {q:"A drug given by IV bolus follows elimination kinetics that are typically:", opts:["Zero order","First order","Second order","Mixed order always"], correct:1},
+      {q:"The loading dose formula DL = Css × Vd is used to:", opts:["Maintain steady state over time","Achieve steady state concentration rapidly","Reduce the elimination rate","Increase the dosing interval"], correct:1},
+      {q:"The time to reach steady state is determined by:", opts:["The dose given","The elimination half-life","The absorption rate","The volume of distribution"], correct:1},
     ]
   },
+  // ========= SECTION 4: NON-LINEAR PK & DISEASE-STATE EFFECTS =========
   {
     id:'nonlinear',
     color:'#FF6B52',
     num:'04',
     title:'Non-Linear PK & Disease-State Effects',
-    desc:'Michaelis-Menten (capacity-limited) kinetics, and how liver, kidney and heart disease alter drug pharmacokinetics.',
+    desc:'Michaelis-Menten kinetics, saturation, characteristics of non-linearity, and detailed effects of liver, kidney, and heart disease on drug ADME.',
     short:[
       {q:"Give another name for non-linear pharmacokinetics.", a:"Capacity-limited, dose-dependent, saturation, or mixed-order pharmacokinetics."},
-      {q:"Write the Michaelis-Menten equation.", a:"dC/dt = −Vmax·C / (Km + C)."},
+      {q:"Write the Michaelis-Menten equation for rate of change of drug concentration.", a:"dC/dt = −Vmax·C / (Km + C)."},
       {q:"What does Km represent physically?", a:"The concentration at which the reaction rate is half of Vmax."},
-      {q:"At low drug concentrations (C << Km), the Michaelis-Menten equation reduces to which order of kinetics?", a:"First order kinetics."},
-      {q:"At high drug concentrations (C >> Km), the Michaelis-Menten equation reduces to which order of kinetics?", a:"Zero order kinetics."},
+      {q:"At low drug concentrations (C << Km), the Michaelis-Menten equation reduces to which order of kinetics?", a:"First order kinetics (dC/dt = −(Vmax/Km)·C)."},
+      {q:"At high drug concentrations (C >> Km), the Michaelis-Menten equation reduces to which order of kinetics?", a:"Zero order kinetics (dC/dt = −Vmax)."},
       {q:"Name a drug that shows dose-dependent (non-linear) kinetics due to enzyme/cofactor saturation.", a:"Phenytoin, theophylline, or alcohol."},
-      {q:"State one characteristic feature of non-linear pharmacokinetics regarding AUC.", a:"AUC is not proportional to the administered dose."},
+      {q:"State three characteristics of non-linear pharmacokinetics.", a:"1. AUC not proportional to dose; 2. Amount excreted not proportional to dose; 3. Elimination half-life may increase at high doses; 4. Metabolite ratio changes with increased dose."},
+      {q:"What causes non-linearity in drug absorption?", a:"Solubility/dissolution rate limitation (e.g. griseofulvin); carrier-mediated transport saturation (e.g. riboflavin, ascorbic acid); presystemic gut wall/hepatic metabolism saturation (e.g. propranolol)."},
+      {q:"What causes non-linearity in drug distribution?", a:"Saturation of plasma protein binding (e.g. phenylbutazone) increasing free drug; saturation of tissue binding sites (e.g. imipramine) decreasing Vd."},
+      {q:"What causes non-linearity in drug metabolism?", a:"Capacity-limited metabolism due to enzyme/cofactor saturation (e.g. phenytoin, theophylline); enzyme induction (e.g. carbamazepine); hepatotoxicity; changes in hepatic blood flow."},
+      {q:"What causes non-linearity in drug excretion?", a:"Active tubular secretion saturation (e.g. penicillin) decreases renal clearance; active tubular reabsorption saturation (e.g. water-soluble vitamins) increases renal clearance."},
       {q:"How does reduced liver blood flow affect a high-extraction drug like propranolol?", a:"It reduces first-pass metabolism, increasing the drug's bioavailability and systemic exposure."},
       {q:"How does hypoalbuminemia in chronic liver disease affect free drug concentration?", a:"It reduces protein binding, increasing the free/unbound fraction of the drug in plasma."},
       {q:"How does decreased GFR in renal disease affect a drug's elimination half-life?", a:"It decreases renal clearance, which increases (prolongs) the drug's plasma half-life."},
       {q:"What shape does the concentration–response curve take when concentration is plotted on a semilogarithmic (log) scale?", a:"A sigmoidal shape."},
       {q:"What are the two main PK changes seen in congestive heart failure?", a:"A reduction in the volume of distribution and impairment of clearance."},
+      {q:"What is the effect of oedema and ascites on Vd of highly water-soluble drugs?", a:"They increase Vd, leading to lower plasma concentrations and potential therapeutic failure at usual doses."},
+      {q:"What is the effect of dehydration or muscle wasting on Vd?", a:"They increase Vd, potentially causing unexpectedly high plasma concentrations and toxicity at usual doses."},
+      {q:"What is the effect of uremia on GI absorption?", a:"Uremia decreases GI absorption of drugs and alters first-pass hepatic metabolism, reducing first-pass metabolism and increasing bioavailability."},
+      {q:"How does renal failure affect morphine's pharmacokinetics?", a:"Morphine metabolism is slower and excretion of its active metabolite (M-6-glucuronide) is impaired, leading to accumulation and increased toxicity (prolonged narcosis, respiratory depression)."},
     ],
     mcq:[
       {q:"Non-linear pharmacokinetics may arise from saturation of:", opts:["Renal blood flow only","An enzyme- or carrier-mediated transport system","Gastric pH regulation","Cardiac output"], correct:1},
@@ -489,20 +523,29 @@ const SECTIONS = [
       {q:"Chronic liver disease commonly causes which change in serum proteins?", opts:["Hyperalbuminemia","Hypoalbuminemia","No change in albumin","Increased globulin only, no change in albumin"], correct:1},
       {q:"Oedema or ascites primarily increases the Vd of drugs that are:", opts:["Highly lipophilic","Highly water soluble","Highly protein bound","Poorly absorbed"], correct:1},
       {q:"'Steady state' during chronic/repeated drug dosing is reached when:", opts:["The dose is doubled","Rate of administration equals rate of elimination","Absorption stops completely","Vd becomes zero"], correct:1},
+      {q:"Phenytoin exhibits non-linear PK due to:", opts:["Saturation of plasma protein binding","Saturation of CYP450 enzymes","Saturation of renal tubular secretion","Saturation of GI absorption"], correct:1},
+      {q:"In patients with renal failure, which drug's active metabolite accumulation causes toxicity?", opts:["Warfarin","Morphine","Propranolol","Diazepam"], correct:1},
+      {q:"Saturation of tissue binding sites (e.g. imipramine) results in:", opts:["Increased Vd","Decreased Vd","No change in Vd","Increased clearance"], correct:1},
+      {q:"Active tubular secretion saturation (e.g. penicillin) results in:", opts:["Increased renal clearance","Decreased renal clearance","No change in clearance","Increased Vd"], correct:1},
     ]
   },
+  // ========= SECTION 5: PHARMACOGENETICS & BA/BE =========
   {
     id:'pgx-ba',
     color:'#9B87F5',
     num:'05',
     title:'Pharmacogenetics & Bioavailability/Bioequivalence',
-    desc:'Genetic variation in drug response, metabolizer phenotypes, and how bioavailability & bioequivalence are defined and tested.',
+    desc:'Genetic variation, metabolizer phenotypes, CYP450 polymorphisms, BCS classification, absolute/relative bioavailability, bioequivalence criteria, and clinical applications.',
     short:[
       {q:"Define pharmacogenetics.", a:"The study of the influence of hereditary/genetic factors on an individual's response to drugs."},
+      {q:"Define pharmacogenomics.", a:"The study of the effects of genetic differences among people on drug uptake, effectiveness, toxicity, and metabolism (often population-level)."},
       {q:"How does pharmacogenetics differ from pharmacogenomics?", a:"Pharmacogenetics focuses on a single gene's effect on drug response; pharmacogenomics considers multiple genes, often at a population level."},
       {q:"Name the four metabolizer phenotypes.", a:"Poor, Intermediate, Extensive, and Ultrarapid metabolizers."},
       {q:"What clinical risk exists for an infant breastfed by an ultrarapid CYP2D6 metabolizer mother taking codeine?", a:"Excessive conversion of codeine to morphine in the mother, causing potentially fatal respiratory depression in the breastfed infant."},
       {q:"Which CYP450 enzyme's polymorphism affects warfarin dosing requirements?", a:"CYP2C9 (variants reduce metabolism of S-warfarin, requiring lower maintenance doses)."},
+      {q:"Which CYP450 enzyme converts codeine to morphine?", a:"CYP2D6."},
+      {q:"What is the clinical implication of CYP2C19 polymorphism for clopidogrel?", a:"Poor/Intermediate metabolizers have reduced enzyme activity, resulting in reduced conversion of clopidogrel to active form → therapeutic failure."},
+      {q:"What percentage of phase I metabolism is mediated by CYP450 enzymes?", a:"Approximately 78–80%."},
       {q:"Define bioavailability.", a:"The rate and extent to which the active drug is absorbed from a dosage form and becomes available at the site of action."},
       {q:"Write the formula for absolute bioavailability.", a:"F = (AUCpo/Dpo) / (AUCiv/Div)."},
       {q:"What is the key difference between absolute and relative bioavailability?", a:"Absolute bioavailability compares a dosage form to an IV dose (F=100%); relative bioavailability compares two non-IV formulations to each other."},
@@ -510,6 +553,10 @@ const SECTIONS = [
       {q:"Which BCS class(es) of drugs may qualify for a biowaiver (in vitro bioequivalence only)?", a:"BCS Class I (high solubility, high permeability), and in some cases Class III."},
       {q:"What does Tmax primarily indicate about a drug?", a:"The rate of absorption — the time at which peak plasma concentration is reached."},
       {q:"What does Cmax need to stay between, for a drug to be both safe and effective?", a:"The minimum effective concentration (MEC) and the minimum toxic concentration (MTC)."},
+      {q:"What is the therapeutic window (therapeutic index)?", a:"The range of plasma concentration of a drug that provides efficacy without unacceptable adverse (toxic) effects."},
+      {q:"What is P-glycoprotein and its clinical significance?", a:"A membrane-bound ATP-dependent efflux transporter that pumps drugs out of cells; overexpressed in cancer cells causing chemoresistance."},
+      {q:"What percentage of adverse drug reactions are mediated by Phase I metabolism enzymes?", a:"Approximately 59%."},
+      {q:"What is the difference between pharmaceutical equivalents and pharmaceutical alternatives?", a:"Equivalents: same active ingredient, strength, dosage form, route (may differ in excipients). Alternatives: same therapeutic moiety but different salt, ester, or dosage form."},
     ],
     mcq:[
       {q:"Genetic polymorphism is defined as a DNA sequence variation found in at least:", opts:["0.1% of the population","1% of the population","10% of the population","50% of the population"], correct:1},
@@ -522,6 +569,131 @@ const SECTIONS = [
       {q:"Two products are 'bioequivalent' when there is no significant difference in:", opts:["Tablet color and shape","Rate and extent of absorption under similar conditions","Price and packaging","Manufacturer identity"], correct:1},
       {q:"A BCS Class II drug is characterized by:", opts:["High solubility, high permeability","Low solubility, high permeability","High solubility, low permeability","Low solubility, low permeability"], correct:1},
       {q:"Poor metabolizers who are given a prodrug typically experience:", opts:["Faster conversion to active drug","Slower conversion to active drug, reduced effect","No effect on prodrug conversion","Immediate toxicity in all cases"], correct:1},
+      {q:"Which drug's label requires HLA-B*1502 testing before prescribing?", opts:["Warfarin","Carbamazepine","Codeine","Clopidogrel"], correct:1},
+      {q:"Which drug's label requires TPMT testing before prescribing?", opts:["Azathioprine","Warfarin","Tamoxifen","Carbamazepine"], correct:0},
+      {q:"P-glycoprotein efflux is clinically relevant in:", opts:["Drug absorption from the gut","Drug distribution to the brain","Cancer drug resistance","All of the above"], correct:3},
+      {q:"Pharmaceutical alternatives include:", opts:["Same active ingredient, different salt or ester","Same dosage form and strength","Same excipients","Identical color and shape"], correct:0},
+      {q:"A drug with low solubility and high permeability belongs to BCS:", opts:["Class I","Class II","Class III","Class IV"], correct:1},
+    ]
+  },
+  // ========= SECTION 6: ROUTES OF ADMINISTRATION =========
+  {
+    id:'routes',
+    color:'#FF8C42',
+    num:'06',
+    title:'Routes of Drug Administration',
+    desc:'Enteral (oral, sublingual/buccal, rectal) and parenteral (IV, IM, SC, intradermal, intrathecal), inhalation, topical — advantages, disadvantages, examples, and clinical considerations.',
+    short:[
+      {q:"What are the two major classifications of routes of drug administration?", a:"Enteral (GIT: oral, buccal, rectal) and Parenteral (not through alimentary canal: injections, inhalation, topical)."},
+      {q:"Which route has no membrane crossing and no absorption phase?", a:"Intravenous (IV) administration — drug enters directly into systemic circulation."},
+      {q:"What is the most common site for IM injections and why?", a:"Deltoid muscle (arm) has greatest vascularity, so fastest absorption; also vastus lateralis (thigh) and gluteus maximus (buttocks)."},
+      {q:"What factors influence absorption rate from IM injection?", a:"Vascularity of site (most important), degree of ionization, lipid solubility, volume of injection, and osmolality of solution."},
+      {q:"Why should diazepam be injected slowly IV (1 minute per mg)?", a:"Diazepam is poorly water soluble; its injectable contains 40% propylene glycol and 10% ethanol — rapid injection can cause precipitation and phlebitis."},
+      {q:"What is the maximum recommended IV injection rate for phenytoin sodium?", a:"Not exceeding 50 mg/min (usual dose 150-250mg)."},
+      {q:"What is a prodrug and why is it used for IV injection?", a:"A lipid-soluble drug chemically modified to form a water-soluble salt for injection; converted back to active parent drug in the body. Examples: dexamethasone phosphate, chloramphenicol succinate ester."},
+      {q:"List advantages of IV administration.", a:"Rapid response, total dose delivered to bloodstream, large doses possible by infusion, veins relatively insensitive to irritation."},
+      {q:"List disadvantages of IV administration.", a:"Difficult to find suitable vein, rapid toxicity risk, requires trained personnel, expensive (sterility/pyrogen testing)."},
+      {q:"Why is IM route preferred when patient cannot receive oral medication?", a:"Provides relatively fast absorption without relying on GI tract; used for drugs poorly absorbed from GIT."},
+      {q:"What is the main disadvantage of IM administration?", a:"More painful than IV; does not always assure rapid/complete absorption; drug may precipitate at injection site (e.g. phenytoin, digoxin, diazepam)."},
+      {q:"What is the absorption characteristic of SC route?", a:"Slower than IM; chosen when slower rate of absorption is desired (e.g. insulin, sodium heparin, epinephrine for asthma)."},
+      {q:"Why is epinephrine given subcutaneously for asthma?", a:"To avoid the dangers of rapid absorption and consequent dangerous cardiovascular effects."},
+      {q:"What is the intradermal route used for?", a:"Diagnostic and test procedures — e.g. tuberculin test, allergy screening."},
+      {q:"What is the intrathecal route and when is it used?", a:"Injection directly into cerebrospinal fluid or pleural cavity; used when IV cannot achieve adequate drug penetration into special compartments (e.g. CNS infections, cancer chemotherapy)."},
+      {q:"What is the key advantage of the inhalation route?", a:"Large surface area of alveoli, high permeability of alveolar epithelium, rich blood supply → rapid absorption; bypasses first-pass hepatic metabolism."},
+      {q:"What is the critical factor for aerosol particle size in inhalation?", a:"Particles >1µ settle in bronchioles; particles <0.5µ are exhaled. Optimal size is 0.5–1µ."},
+      {q:"What is the sublingual/buccal route used for?", a:"Rapid absorption through vascular mucous membranes; bypasses first-pass metabolism. Examples: nitroglycerin (angina), some steroids, nicotine gum."},
+      {q:"What are the advantages of the sublingual route?", a:"Bypasses first-pass liver metabolism; rapid absorption (good blood supply); relatively neutral pH in mouth; higher bioavailability."},
+      {q:"What are the disadvantages of the sublingual route?", a:"Inconvenient holding drug in mouth; if swallowed, subject to first-pass effect; only small doses can be accommodated."},
+      {q:"Why is the rectal route used?", a:"For local effects or systemic effect when oral administration is difficult (coma, GI surgery, vomiting) or contraindicated; partial bypass of first-pass effect."},
+      {q:"What is the key limitation of the rectal route?", a:"Relatively small surface area of rectum → slow absorption; formulation critical; less dignified for patient."},
+      {q:"What is first-pass effect and what is its clinical significance?", a:"Drugs absorbed orally are transported to the general circulation through the liver, where they may be extensively metabolized before reaching systemic circulation. Examples: propranolol, morphine require higher oral doses than IV."},
+      {q:"What are the advantages of the oral route?", a:"Convenience (portable, no pain); cheap (no sterilization); variety of dosage forms (tablets, capsules, enteric coated, slow release, suspensions, mixtures)."},
+      {q:"What are the disadvantages of the oral route?", a:"May be inefficient (poor bioavailability for high-dose/low-solubility drugs); first-pass effect; food/GI motility affects absorption; may kill normal gut flora; not useful for unconscious patients."},
+      {q:"What route is preferred for a vomiting patient?", a:"Rectal, IV, IM, SC, transdermal, or sublingual/buccal — routes that bypass the GI tract."},
+      {q:"What route is preferred for an unconscious patient?", a:"Intravenous (IV) is safest and most effective; alternatives include IM, SC, rectal, transdermal (if airway secured)."},
+      {q:"What is the 'flip-flop' phenomenon in extravascular dosing?", a:"When elimination rate constant (Ke) is much greater than absorption rate constant (Ka) — the apparent absorption rate is actually the elimination rate."},
+      {q:"What are repository preparations and why are they used?", a:"Preparations given subcutaneously that slowly release drug over time (e.g. hormonal contraceptives) — used to avoid too intense or too short a response."},
+      {q:"What is the primary reason for using IV infusion over IV bolus?", a:"Provides steady-state supply; avoids excessively high drug concentrations; safer for irritant drugs and drugs with short half-lives."},
+    ],
+    mcq:[
+      {q:"The route that bypasses first-pass hepatic metabolism entirely is:", opts:["Oral","Rectal","Intravenous","Sublingual"], correct:2},
+      {q:"Absorption from IM injection is fastest in which muscle?", opts:["Gluteus maximus (buttocks)","Deltoid (arm)","Vastus lateralis (thigh)","Rectus abdominis"], correct:1},
+      {q:"Which route has no absorption phase because no membrane is crossed?", opts:["IM","SC","Oral","IV"], correct:3},
+      {q:"Phenytoin sodium IV should be injected at a rate not exceeding:", opts:["10 mg/min","25 mg/min","50 mg/min","100 mg/min"], correct:2},
+      {q:"Diazepam injection contains propylene glycol and ethanol because diazepam is:", opts:["Highly water soluble","Poorly water soluble","Highly protein bound","Highly lipophilic only"], correct:1},
+      {q:"Which drug is an example of an IV prodrug that is converted to its active form in the body?", opts:["Morphine","Dexamethasone phosphate","Warfarin","Phenytoin"], correct:1},
+      {q:"Subcutaneous administration is typically used for:", opts:["Rapid emergency response","Drugs needing slow absorption (e.g. insulin)","Irritant drugs","Large volume drugs"], correct:1},
+      {q:"The intrathecal route is used when:", opts:["Oral absorption is too fast","IV cannot achieve adequate CNS drug levels","IM injection is too painful","SC absorption is too slow"], correct:1},
+      {q:"For inhalation therapy, aerosol particles should ideally be:", opts:["<0.5 microns","0.5–1 microns",">1 micron",">10 microns"], correct:1},
+      {q:"A major disadvantage of oral administration is:", opts:["Requires sterile preparation","First-pass metabolism","Always causes pain","Only liquid formulations available"], correct:1},
+      {q:"The sublingual route is ideal for:", opts:["Large volume drugs","Drugs with extensive first-pass metabolism","Irritant drugs","Water-soluble drugs only"], correct:1},
+      {q:"In a patient with GI surgery, the preferred route for systemic drug administration is:", opts:["Oral","Rectal","Sublingual","Intravenous"], correct:3},
+      {q:"Food affects oral drug absorption by:", opts:["Always increasing absorption","Always decreasing absorption","Affecting GI motility and solubility","Having no effect at all"], correct:2},
+      {q:"The rectal route has which advantage over oral?", opts:["Faster absorption than IV","Partial bypass of first-pass metabolism","Larger surface area than oral","More convenient than oral"], correct:1},
+      {q:"Why are repository preparations given subcutaneously?", opts:["For faster absorption","To spread action over hours/days","To avoid any systemic effects","Because they are water-soluble"], correct:1},
+      {q:"Which route is most appropriate for an unconscious patient requiring emergency treatment?", opts:["Oral","Rectal","Intravenous","Sublingual"], correct:2},
+      {q:"The 'flip-flop' model describes a situation where:", opts:["Ka >> Ke","Ke >> Ka","Ka = Ke","Absorption is zero order"], correct:1},
+      {q:"Dermatologic preparations are affected by skin hydration which:", opts:["Decreases absorption","Increases absorption","Has no effect","Causes drug precipitation"], correct:1},
+      {q:"Which route is commonly used for the tuberculin test?", opts:["Intravenous","Intradermal","Subcutaneous","Intramuscular"], correct:1},
+      {q:"Sterile preparations are required for which routes?", opts:["Oral and rectal","All parenteral routes","Topical only","Sublingual only"], correct:1},
+    ]
+  },
+  // ========= SECTION 7: PHARMACOKINETIC SYMBOLS & PARAMETERS =========
+  {
+    id:'symbols',
+    color:'#67D6C4',
+    num:'07',
+    title:'Pharmacokinetic Symbols & Parameters',
+    desc:'Complete list of symbols: Cp, Cmax, Cmin, Tmax, AUC, Vd, CL, Ke, t1/2, F, Ka, Css, τ, MRT, MAT, and their clinical significance.',
+    short:[
+      {q:"What does Cp represent?", a:"Plasma drug concentration at any given time (units: mg/L, μg/mL, ng/mL)."},
+      {q:"What does Cmax represent?", a:"Maximum (peak) plasma drug concentration achieved after administration."},
+      {q:"What is the clinical significance of Cmax?", a:"Indicates peak exposure; high Cmax may increase efficacy but also risk of adverse effects, especially for drugs with narrow therapeutic indices."},
+      {q:"What does Tmax represent?", a:"Time to reach Cmax; indicates absorption rate and onset of action."},
+      {q:"What does AUC represent?", a:"Area under the plasma concentration-time curve; total drug exposure over time."},
+      {q:"What is the formula for clearance (CL)?", a:"CL = Ke × Vd (units: L/h, mL/min)."},
+      {q:"What is the elimination rate constant (Ke)?", a:"Fraction of drug removed per unit time (units: h⁻¹)."},
+      {q:"What is the formula for Ke?", a:"Ke = 0.693 / t1/2."},
+      {q:"What is the therapeutic window (therapeutic index)?", a:"The range of plasma concentration that provides efficacy without unacceptable toxic effects."},
+      {q:"What is the minimum effective concentration (MEC)?", a:"The minimum plasma concentration required for therapeutic effect."},
+      {q:"What is the minimum toxic concentration (MTC)?", a:"The minimum plasma concentration beyond which toxic effects begin to manifest."},
+      {q:"What does Css represent?", a:"Steady-state plasma concentration achieved during chronic dosing or continuous infusion."},
+      {q:"What is the formula for volume of distribution (Vd)?", a:"Vd = Dose / C0 (units: L or L/kg)."},
+      {q:"What does a low Vd indicate about drug distribution?", a:"Drug is confined to plasma or extracellular fluid; limited tissue distribution."},
+      {q:"What does a high Vd indicate about drug distribution?", a:"Extensive tissue distribution; drug is concentrated in tissues rather than plasma."},
+      {q:"What does F represent in pharmacokinetics?", a:"Bioavailability — the fraction of administered dose reaching systemic circulation unchanged (range 0–1 or 0–100%)."},
+      {q:"What is the formula for bioavailability?", a:"F = AUCoral/AUCiv × Doseiv/Doseoral."},
+      {q:"What does Ka represent?", a:"Absorption rate constant — rate at which drug enters systemic circulation (units: h⁻¹)."},
+      {q:"What does τ (tau) represent?", a:"Dosing interval — time between doses."},
+      {q:"How many half-lives does it take to reach steady state?", a:"Approximately 5 half-lives."},
+      {q:"How many half-lives does it take to eliminate a drug?", a:"Approximately 5 half-lives (drug is >95% eliminated)."},
+      {q:"What is the relationship between Ke and t1/2?", a:"High Ke → rapid elimination → short half-life → frequent dosing; Low Ke → slow elimination → long half-life → less frequent dosing."},
+      {q:"What does CL represent clinically?", a:"The volume of plasma cleared of drug per unit time; a measure of body's efficiency in eliminating a drug."},
+      {q:"What is total body clearance?", a:"CLT = CLR + CLH (renal clearance + hepatic clearance)."},
+      {q:"What is the formula for maintenance dose?", a:"MDose = Ctarget × CL × Dosing interval."},
+      {q:"What is Cmin (trough concentration)?", a:"Minimum observed concentration of drug in blood plasma at steady state (just before next dose)."},
+      {q:"What does C0 represent?", a:"Initial drug concentration immediately after IV administration; obtained by extrapolation of concentration-time curve to time zero."},
+      {q:"What is the relationship between AUC and clearance?", a:"AUC = Dose / CL."},
+      {q:"What is MRT (Mean Residence Time) in one-compartment model?", a:"MRTiv = 1/Ke."},
+      {q:"What is MAT (Mean Absorption Time)?", a:"MAT = MRTev − MRTiv; represents the extra time added by the extravascular absorption process."},
+    ],
+    mcq:[
+      {q:"The symbol Cp represents:", opts:["Peak plasma concentration","Plasma concentration at any time","Trough concentration","Volume of distribution"], correct:1},
+      {q:"AUC is a measure of:", opts:["Rate of drug absorption","Total drug exposure over time","Peak drug concentration","Time to peak concentration"], correct:1},
+      {q:"The elimination rate constant (Ke) is related to half-life by:", opts:["Ke = 0.5 × t1/2","Ke = 0.693 / t1/2","Ke = t1/2 / 0.693","Ke = 2 × t1/2"], correct:1},
+      {q:"Clearance is calculated as:", opts:["CL = Vd × t1/2","CL = Ke × Vd","CL = Dose / Cmax","CL = AUC / Dose"], correct:1},
+      {q:"A low Vd indicates:", opts:["Extensive tissue distribution","Drug confined to plasma or extracellular fluid","Rapid drug elimination","Slow drug absorption"], correct:1},
+      {q:"The therapeutic window is:", opts:["Always the same for all drugs","The range between MEC and MTC","The maximum dose allowed","The minimum effective dose"], correct:1},
+      {q:"Bioavailability (F) for an IV drug is:", opts:["Variable between 0-100%","Always 100%","Always 50%","Dependent on route"], correct:1},
+      {q:"The time to reach steady state depends on:", opts:["The loading dose","The drug's half-life","The maintenance dose","The dosing interval only"], correct:1},
+      {q:"Css (steady-state concentration) is reached when:", opts:["The dose is doubled","Rate of administration equals rate of elimination","Absorption stops","Vd changes"], correct:1},
+      {q:"Total body clearance is the sum of:", opts:["CLR + CLH","CLR × CLH","CLR - CLH","CLR / CLH"], correct:0},
+      {q:"The symbol τ (tau) represents:", opts:["Time to reach Cmax","Dosing interval","Absorption rate constant","Elimination half-life"], correct:1},
+      {q:"A high Ke indicates:", opts:["Rapid elimination and short half-life","Slow elimination and long half-life","No elimination","Increased distribution"], correct:0},
+      {q:"The maintenance dose formula is:", opts:["MD = Ctarget × CL × τ","MD = Ctarget / Vd","MD = Vd × Ke","MD = CL / Cmax"], correct:0},
+      {q:"MAT (Mean Absorption Time) is calculated as:", opts:["MRTiv - MRTev","MRTev - MRTiv","AUCiv - AUCev","Cmaxiv - Cmaxev"], correct:1},
+      {q:"The symbol F represents:", opts:["Fraction of dose absorbed","Fraction of drug excreted","Fraction of drug bound","Fraction of drug metabolized"], correct:0},
+      {q:"AUC is directly proportional to:", opts:["Clearance","(F × Dose) / CL","Cmax","Tmax"], correct:1},
     ]
   }
 ];
@@ -540,7 +712,7 @@ const ICO = {
 /* ============================================================
    STATE + PERSISTENCE
    ============================================================ */
-const STORAGE_KEY = "pcl423_state_v2";
+const STORAGE_KEY = "pcl423_state_v3";
 
 let storageAvailable = true;
 function loadState(){
@@ -609,14 +781,13 @@ function renderTopbar(){
   app.appendChild(bar);
 }
 
-/* ---------- GATE (name entry) ---------- */
 function renderGate(){
   const el = document.createElement('div');
   el.className = 'gate';
   el.innerHTML = `
     <div class="gate-eyebrow">Clinical Pharmacokinetics · PCL 423</div>
     <h1>Be <em>completely</em><br/>ready for it.</h1>
-    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, non-linear kinetics, pharmacogenetics and bioequivalence — in one focused revision deck.</p>
+    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, routes, non-linear kinetics, pharmacogenetics, bioequivalence, symbols — fully comprehensive.</p>
     <form class="name-form" id="nameForm" autocomplete="off">
       <input type="text" id="nameInput" placeholder="Enter your name to begin" required maxlength="40"/>
       <button type="submit" class="btn btn-primary">Start studying →</button>
@@ -637,7 +808,6 @@ function renderGate(){
   document.getElementById('nameInput').focus();
 }
 
-/* ---------- HOME ---------- */
 function renderHome(){
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
@@ -654,7 +824,7 @@ function renderHome(){
     <div class="home-head">
       <div class="eyebrow">Welcome back, ${escapeHtml(state.name.split(' ')[0])}</div>
       <h1>Choose a topic to study</h1>
-      <p>Every topic has a Flashcard mode and an MCQ mode. Work through both to be fully prepared.</p>
+      <p>Every topic has Flashcards and Multiple Choice questions. Work through all 7 sections to be fully prepared.</p>
       <div class="overall-bar"><div class="overall-bar-fill" style="width:${pct}%"></div></div>
       <div class="overall-label">${pct}% OF ALL QUESTIONS COVERED · ${totalDone}/${totalItems}</div>
     </div>
@@ -668,7 +838,7 @@ function renderHome(){
     const card = document.createElement('div');
     card.className = 'topic-card';
     card.style.setProperty('--tcolor', s.color);
-    card.style.animationDelay = (si*0.06)+'s';
+    card.style.animationDelay = (si*0.05)+'s';
     card.innerHTML = `
       <div class="topic-top">
         <div>
@@ -734,7 +904,6 @@ function startOrResume(sectionId, mode){
   render();
 }
 
-/* ---------- QUIZ SHELL ---------- */
 function renderQuiz(){
   const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
   const items = section[activeQuiz.mode];
@@ -765,7 +934,6 @@ function renderQuiz(){
   renderCardContent(activeQuiz.idx, 'none');
 }
 
-/* ---------- CARD CONTENT (flashcard or mcq) ---------- */
 function renderCardContent(idx, direction){
   const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
   const items = section[activeQuiz.mode];
@@ -901,7 +1069,6 @@ function attachMcqHandlers(section, item, idx){
   });
 }
 
-/* ---------- NAV / DOTS / COUNTER ---------- */
 function updateCounter(idx, total){
   const el = document.getElementById('cardCounter');
   if(el) el.textContent = `${idx+1} / ${total}`;
@@ -972,7 +1139,6 @@ function goPrev(){
   renderCardContent(activeQuiz.idx, 'prev');
 }
 
-/* ---------- keyboard navigation ---------- */
 document.addEventListener('keydown', (e)=>{
   if(!route || route.screen !== 'quiz') return;
   if(e.key === 'ArrowRight'){
@@ -987,7 +1153,6 @@ document.addEventListener('keydown', (e)=>{
   }
 });
 
-/* ---------- RESULTS ---------- */
 function renderResults(){
   const section = SECTIONS.find(s=>s.id===activeQuiz.sectionId);
   const items = section[activeQuiz.mode];
@@ -1055,7 +1220,6 @@ function animateScoreRing(ringEl, textEl, pctFinal){
   requestAnimationFrame(step);
 }
 
-/* ---------- utils ---------- */
 function escapeHtml(str){
   const d = document.createElement('div');
   d.textContent = str;

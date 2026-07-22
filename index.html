@@ -340,9 +340,10 @@
 
 <script>
 /* ============================================================
-   DATA — PCL 423: FULLY COMPREHENSIVE — COVERS EVERY SLIDE
-   Sections: Kinetics, Models, Dosing, Routes, Non-Linear & Disease,
-   Pharmacogenetics, BA/BE, Symbols & Parameters, Non-Compartmental
+   DATA — FULLY COMPREHENSIVE — COVERS EVERY SLIDE OF BOTH PDFs
+   Sections: Kinetics, Models, Dosing, Non-Linear & Disease,
+   Pharmacogenetics & BA/BE, Routes of Administration,
+   Symbols & Parameters, Non-Compartmental, Clinical Applications
    ============================================================ */
 const SECTIONS = [
   // ========= SECTION 1: RATES & ORDERS OF REACTION =========
@@ -695,6 +696,68 @@ const SECTIONS = [
       {q:"The symbol F represents:", opts:["Fraction of dose absorbed","Fraction of drug excreted","Fraction of drug bound","Fraction of drug metabolized"], correct:0},
       {q:"AUC is directly proportional to:", opts:["Clearance","(F × Dose) / CL","Cmax","Tmax"], correct:1},
     ]
+  },
+  // ========= SECTION 8: CLINICAL PHARMACOKINETICS & APPLICATIONS =========
+  {
+    id:'clinical',
+    color:'#FF6B9D',
+    num:'08',
+    title:'Clinical Pharmacokinetics & Applications',
+    desc:'Learning outcomes, physicochemical properties (pKa, lipophilicity, solubility, ionization, protein binding), membrane properties, drug disposition, TDM, and practical pharmacy applications.',
+    short:[
+      {q:"What are the learning outcomes of clinical pharmacokinetics?", a:"Define PK terminologies; explain physicochemical properties affecting drug action (pKa, lipophilicity, solubility, ionization, protein binding); describe drug fate; compare routes; explain membrane structure and functions; relate membrane properties to drug absorption and distribution."},
+      {q:"What is the definition of pharmacokinetics?", a:"Study and characterization of time course of drug absorption, distribution, metabolism and excretion and relationship of these processes to intensity and time course of therapeutic and adverse effects."},
+      {q:"What is pharmacodynamics?", a:"What the drug does to the body in its passage through it — drug-receptor interactions and resultant reactions."},
+      {q:"What is clinical pharmacokinetics?", a:"Study of the time course of a drug's movement through the body; application of PK principles in patient management; involves TDM and individualisation of therapy."},
+      {q:"List 5 practical applications of pharmacokinetics in pharmacy.", a:"Design dosage regimens; monitor plasma drug concentrations; adjust doses in renal/liver impairment; assess bioequivalence; optimize antimicrobial therapy; support oncology dosing; guide paediatric/geriatric dosing."},
+      {q:"What are the four processes of the pharmacokinetic process and their organs?", a:"Absorption (GI tract), Distribution (blood and tissues), Metabolism (liver), Excretion (kidney)."},
+      {q:"What is drug concentration (C) and its units?", a:"Amount of drug per unit volume of plasma or blood — units: mg/L, μg/mL, ng/mL."},
+      {q:"What is the clinical importance of plasma drug concentration (Cp)?", a:"Therapeutic drug monitoring, bioavailability studies, and dose adjustment."},
+      {q:"What is initial drug concentration (C0) and how is it obtained?", a:"Drug concentration immediately after IV administration; obtained by extrapolating concentration-time curve back to time zero."},
+      {q:"What is drug concentration at time t (Ct) used for?", a:"Drug monitoring, pharmacokinetic modeling, and elimination studies."},
+      {q:"What does high Cmax indicate clinically?", a:"May increase efficacy but also risk of adverse effects, especially for drugs with narrow therapeutic indices."},
+      {q:"What does Tmax indicate and what is its use?", a:"Indicates absorption rate and onset of action; useful for formulation comparisons (e.g. modified-release vs immediate-release)."},
+      {q:"What is the difference between MEC for therapeutic effect and MEC for toxic effect?", a:"Therapeutic MEC is minimum concentration for desired effect; toxic MEC is the concentration beyond which toxic effects begin — always higher than therapeutic MEC."},
+      {q:"What is the relationship between AUC and drug clearance?", a:"For a fixed dose, high AUC means body clears drug slowly; low AUC means body clears drug quickly. AUC = Dose / CL."},
+      {q:"How is AUC used in bioequivalence studies?", a:"Generic drug's AUC must fall between 80–125% of brand-name drug's AUC for regulators to consider them equivalent."},
+      {q:"What factors affect the route of administration selection?", a:"Desired speed of onset; physicochemical properties; patient's age/clinical condition; need for local/systemic effect; ability to swallow; drug stability in GI tract; extent of first-pass metabolism."},
+      {q:"What is the difference between enteral and parenteral routes?", a:"Enteral involves GIT (oral, buccal, rectal); parenteral means not through alimentary canal (injections, inhalation, topical)."},
+      {q:"Which routes are considered hypodermic?", a:"Intravenous, intramuscular, subcutaneous, and intradermal."},
+      {q:"What are the advantages of the oral route?", a:"Convenience, non-sterile, good absorption for most drugs, cheap, variety of dosage forms."},
+      {q:"What are the disadvantages of the oral route?", a:"GI irritation, potential interactions, first-pass destruction, inactivated by acids, variable absorption, not useful for unconscious patients."},
+      {q:"What is the advantage of the sublingual/buccal route?", a:"Avoids first-pass effect, avoids gastric acid, rapid absorption due to good blood supply."},
+      {q:"What is the advantage of the rectal route?", a:"Avoids first-pass effect (partial), avoids gastric acid; useful when oral administration is difficult."},
+      {q:"What is the disadvantage of the rectal route?", a:"Less dignified for the patient; absorption can be variable; small surface area."},
+      {q:"What is the primary advantage of IV administration?", a:"Rapid action, complete availability (100% bioavailability), precise dosing."},
+      {q:"What is the primary disadvantage of IV administration?", a:"Increased drug levels to heart, must be sterile, risk of sepsis and embolism, irreversible administration."},
+      {q:"What is the advantage of IM administration?", a:"Rapid absorption; used when patient cannot receive oral medication; good for vaccines and depot preparations."},
+      {q:"What is the disadvantage of IM administration?", a:"Painful; risk of tissue damage; does not always assure rapid/complete absorption; drug may precipitate at injection site."},
+      {q:"What is the advantage of SC administration?", a:"Good for slower absorption; self-administration possible (e.g. insulin)."},
+      {q:"What is the disadvantage of SC administration?", a:"Absorption variable; only small doses can be accommodated; can be painful."},
+      {q:"What is the advantage of inhalation route?", a:"Large absorption area; good for temporal use; bypasses first-pass metabolism."},
+      {q:"What is the disadvantage of inhalation route?", a:"Few disadvantages; particle size critical."},
+    ],
+    mcq:[
+      {q:"Pharmacodynamics is best described as:", opts:["What the body does to the drug","What the drug does to the body","The rate of drug absorption","The volume of distribution"], correct:1},
+      {q:"Clinical pharmacokinetics involves:", opts:["Only drug development","Application of PK principles in patient management","Only bioequivalence studies","Only drug metabolism"], correct:1},
+      {q:"The therapeutic window is the range between:", opts:["Cmax and Tmax","MEC and MTC","AUC and CL","Vd and t1/2"], correct:1},
+      {q:"Which physicochemical property affects drug action?", opts:["pKa only","Lipophilicity only","Solubility, ionization, and protein binding","Only molecular weight"], correct:2},
+      {q:"The primary organ for drug metabolism is:", opts:["Kidney","Liver","Heart","Lung"], correct:1},
+      {q:"The primary organ for drug excretion is:", opts:["Liver","Kidney","Blood","Tissues"], correct:1},
+      {q:"Drug concentration is defined as:", opts:["Amount of drug per unit volume of plasma","Total dose given","Volume of distribution","Clearance rate"], correct:0},
+      {q:"C0 (initial concentration) is obtained by:", opts:["Direct measurement at 1 hour","Extrapolating concentration-time curve to time zero","Calculating from AUC","Measuring at Cmax"], correct:1},
+      {q:"A high Cmax for a drug with a narrow therapeutic index indicates:", opts:["Increased safety","Increased risk of toxicity","No clinical significance","Faster elimination"], correct:1},
+      {q:"Modified-release formulations typically have:", opts:["Shorter Tmax than immediate-release","Longer Tmax than immediate-release","Same Tmax as immediate-release","No Tmax"], correct:1},
+      {q:"The oral route's main disadvantage is:", opts:["It is always painful","First-pass metabolism and variable absorption","Requires sterile preparation","Cannot be used for unconscious patients only"], correct:1},
+      {q:"The sublingual route avoids first-pass metabolism because:", opts:["It is injected directly into blood","Blood from buccal cavity empties directly into systemic circulation","It is absorbed in the stomach","It is metabolised in the kidney"], correct:1},
+      {q:"The inhalation route bypasses first-pass metabolism because:", opts:["Drugs are injected directly","Drugs are absorbed through alveoli directly into systemic circulation","Drugs are metabolised in the lungs","Drugs are excreted rapidly"], correct:1},
+      {q:"Parenteral routes require:", opts:["Non-sterile preparations","Sterile preparations","Enteral feeding","Special food"], correct:1},
+      {q:"The IV route has which advantage over other routes?", opts:["Slower absorption","Complete bioavailability (100%)","Less expensive","No need for trained personnel"], correct:1},
+      {q:"Repository preparations given subcutaneously are used to:", opts:["Achieve rapid onset","Spread action over hours/days","Avoid any systemic effect","Reduce cost"], correct:1},
+      {q:"Total body clearance is the sum of:", opts:["CLR + CLH","CLR × CLH","CLR - CLH","CLR / CLH"], correct:0},
+      {q:"The maintenance dose formula is:", opts:["MD = Ctarget × CL × τ","MD = Ctarget / Vd","MD = Vd × Ke","MD = CL / Cmax"], correct:0},
+      {q:"MRTiv in a one-compartment model equals:", opts:["1/Ke","Ke","t1/2","AUC"], correct:0},
+    ]
   }
 ];
 
@@ -712,7 +775,7 @@ const ICO = {
 /* ============================================================
    STATE + PERSISTENCE
    ============================================================ */
-const STORAGE_KEY = "pcl423_state_v3";
+const STORAGE_KEY = "pcl423_state_v4";
 
 let storageAvailable = true;
 function loadState(){
@@ -787,7 +850,7 @@ function renderGate(){
   el.innerHTML = `
     <div class="gate-eyebrow">Clinical Pharmacokinetics · PCL 423</div>
     <h1>Be <em>completely</em><br/>ready for it.</h1>
-    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, routes, non-linear kinetics, pharmacogenetics, bioequivalence, symbols — fully comprehensive.</p>
+    <p class="lead">Rates &amp; orders of reaction, compartment models, dosing, routes, non-linear kinetics, pharmacogenetics, bioequivalence, clinical applications — fully comprehensive.</p>
     <form class="name-form" id="nameForm" autocomplete="off">
       <input type="text" id="nameInput" placeholder="Enter your name to begin" required maxlength="40"/>
       <button type="submit" class="btn btn-primary">Start studying →</button>
@@ -824,7 +887,7 @@ function renderHome(){
     <div class="home-head">
       <div class="eyebrow">Welcome back, ${escapeHtml(state.name.split(' ')[0])}</div>
       <h1>Choose a topic to study</h1>
-      <p>Every topic has Flashcards and Multiple Choice questions. Work through all 7 sections to be fully prepared.</p>
+      <p>Every topic has Flashcards and Multiple Choice questions. Work through all 8 sections to be fully prepared.</p>
       <div class="overall-bar"><div class="overall-bar-fill" style="width:${pct}%"></div></div>
       <div class="overall-label">${pct}% OF ALL QUESTIONS COVERED · ${totalDone}/${totalItems}</div>
     </div>
@@ -838,7 +901,7 @@ function renderHome(){
     const card = document.createElement('div');
     card.className = 'topic-card';
     card.style.setProperty('--tcolor', s.color);
-    card.style.animationDelay = (si*0.05)+'s';
+    card.style.animationDelay = (si*0.04)+'s';
     card.innerHTML = `
       <div class="topic-top">
         <div>
